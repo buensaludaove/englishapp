@@ -254,8 +254,248 @@ const MODULES_DATA = [
           { question: "Handover notes are for:", options: ["The next shift", "The customers", "The accountant", "The delivery driver"], answer: "The next shift" },
           { question: "'Immediately' means:", options: ["Inmediatamente", "Aproximadamente", "Lentamente", "Correctamente"], answer: "Inmediatamente" }
         ]
-      }
-    ]
+      },
+{
+      id: "prod-3",
+      name: "Production Planning",
+      vocabulary: [
+        { en: "campaign", es: "campaña", example: "The campaign starts in November.", note: "= temporada de molienda" },
+        { en: "planning", es: "planificación", example: "Good planning reduces waste.", note: "" },
+        { en: "schedule", es: "programa/planning", example: "Check the daily schedule.", note: "" },
+        { en: "workload", es: "carga de trabajo", example: "Workload is heavy this week.", note: "" },
+        { en: "capacity", es: "capacidad", example: "Mill capacity is 10 tons per hour.", note: "" },
+        { en: "utilization", es: "utilización", example: "Utilization rate was 85%.", note: "" },
+        { en: "bottleneck", es: "cuello de botella", example: "The malaxer is the bottleneck.", note: "" },
+        { en: "overtime", es: "horas extra", example: "Overtime is needed during peak days.", note: "" },
+        { en: "double shift", es: "doble turno", example: "We're running double shifts.", note: "" },
+        { en: "night shift", es: "turno de noche", example: "Night shift processes the late deliveries.", note: "" },
+        { en: "day shift", es: "turno de día", example: "Day shift starts at 6 AM.", note: "" },
+        { en: "staffing", es: "dotación de personal", example: "Staffing levels need increasing.", note: "" },
+        { en: "roster", es: "cuadrante/turno", example: "Check the weekly roster.", note: "" },
+        { en: "coverage", es: "cobertura", example: "Ensure 24-hour coverage during peak.", note: "" },
+        { en: "handover", es: "relevo/traspaso", example: "Smooth handover between shifts.", note: "" },
+        { en: "incoming", es: "entrante", example: "Brief the incoming shift.", note: "" },
+        { en: "outgoing", es: "saliente", example: "The outgoing team leaves notes.", note: "" },
+        { en: "peak", es: "pico/punta", example: "Peak production was on December 5.", note: "" },
+        { en: "off-peak", es: "valle/fuera de punta", example: "Use off-peak hours for maintenance.", note: "" },
+        { en: "backlog", es: "acumulación/retraso", example: "There's a 50-ton backlog.", note: "" },
+        { en: "priority", es: "prioridad", example: "Fresh olives are always priority.", note: "" },
+        { en: "turnaround", es: "tiempo de respuesta", example: "Turnaround from reception to oil is 4 hours.", note: "" },
+        { en: "lot assignment", es: "asignación de lote", example: "Lot assignment determines the tank.", note: "" },
+        { en: "line", es: "línea", example: "Line 1 is for premium olives.", note: "Línea de producción" },
+        { en: "changeover", es: "cambio de línea/partida", example: "Changeover between varieties takes 20 minutes.", note: "" },
+        { en: "cleaning time", es: "tiempo de limpieza", example: "Include cleaning time in the schedule.", note: "" },
+        { en: "setup", es: "preparación/configuración", example: "Setup for the new lot is ready.", note: "" },
+        { en: "contingency", es: "contingencia", example: "Have a contingency plan for breakdowns.", note: "" },
+        { en: "forecast", es: "previsión", example: "Tomorrow's forecast is 120 tons.", note: "" },
+        { en: "daily target", es: "objetivo diario", example: "Daily target is 100 tons.", note: "" }
+      ],
+      expressions: [
+        { en: "We're running double shifts this week", es: "Estamos con doble turno esta semana" },
+        { en: "There's a 50-ton backlog from yesterday", es: "Hay una acumulación de 50 toneladas de ayer" },
+        { en: "Fresh olives are always priority", es: "Las aceitunas frescas son siempre prioridad" },
+        { en: "Changeover between varieties takes 20 minutes", es: "El cambio entre variedades lleva 20 minutos" },
+        { en: "Include cleaning time in the schedule", es: "Incluir tiempo de limpieza en el programa" },
+        { en: "Turnaround from reception to oil is 4 hours", es: "El tiempo desde recepción a aceite es 4 horas" },
+        { en: "Line 1 is reserved for premium olives", es: "La línea 1 está reservada para aceitunas premium" },
+        { en: "Check the weekly roster for coverage", es: "Comprobar el cuadrante semanal para cobertura" },
+        { en: "Have a contingency plan ready", es: "Tener un plan de contingencia preparado" },
+        { en: "Peak production is expected next week", es: "Se espera producción pico la semana que viene" },
+        { en: "Utilization rate was 85% yesterday", es: "La tasa de utilización fue del 85% ayer" },
+        { en: "Brief the incoming shift before leaving", es: "Informar al turno entrante antes de irse" },
+        { en: "Use off-peak hours for maintenance", es: "Usar las horas valle para mantenimiento" },
+        { en: "The mill capacity is 10 tons per hour", es: "La capacidad de la almazara es 10 toneladas por hora" },
+        { en: "Tomorrow's forecast is 120 tons of olives", es: "La previsión de mañana es 120 toneladas de aceituna" }
+      ],
+      dialogues: [
+        {
+          title: "Planning the week ahead",
+          lines: [
+            { speaker: "Manager", en: "Let's plan this week. What's the reception forecast?", es: "Planifiquemos esta semana. ¿Cuál es la previsión de recepción?" },
+            { speaker: "Supervisor", en: "Monday 80 tons, Tuesday 100, Wednesday 150. Big peak.", es: "Lunes 80 toneladas, martes 100, miércoles 150. Gran pico." },
+            { speaker: "Manager", en: "150 tons on Wednesday. Can we handle it in one shift?", es: "150 toneladas el miércoles. ¿Podemos manejarlo en un turno?" },
+            { speaker: "Supervisor", en: "No. We need double shifts. Capacity is 10 tons per hour.", es: "No. Necesitamos doble turno. La capacidad es 10 toneladas por hora." },
+            { speaker: "Manager", en: "OK. Set up double shifts for Wednesday and Thursday.", es: "Vale. Prepara doble turno para miércoles y jueves." },
+            { speaker: "Supervisor", en: "I'll update the roster. Do we have enough staff?", es: "Actualizo el cuadrante. ¿Tenemos suficiente personal?" },
+            { speaker: "Manager", en: "Call in two extra operators. Overtime rates apply.", es: "Llama a dos operarios extra. Se aplican tarifas de horas extra." },
+            { speaker: "Supervisor", en: "What about maintenance? The decanter needs servicing.", es: "¿Y el mantenimiento? El decánter necesita revisión." },
+            { speaker: "Manager", en: "Schedule it for Friday. That's our off-peak day.", es: "Prográmalo para el viernes. Es nuestro día valle." }
+          ]
+        },
+        {
+          title: "Dealing with a backlog",
+          lines: [
+            { speaker: "Supervisor", en: "Bad news. We have a 60-ton backlog from the weekend.", es: "Malas noticias. Tenemos una acumulación de 60 toneladas del fin de semana." },
+            { speaker: "Manager", en: "That's too much. How old are the oldest olives?", es: "Eso es mucho. ¿Cuánto llevan las aceitunas más antiguas?" },
+            { speaker: "Supervisor", en: "48 hours. We need to process them first.", es: "48 horas. Necesitamos procesarlas primero." },
+            { speaker: "Manager", en: "Absolutely. Fresh olives always get priority, but these can't wait.", es: "Por supuesto. Las aceitunas frescas son prioridad, pero estas no pueden esperar." },
+            { speaker: "Supervisor", en: "I'll put the backlog on Line 1 and fresh arrivals on Line 2.", es: "Pongo la acumulación en Línea 1 y las llegadas frescas en Línea 2." },
+            { speaker: "Manager", en: "Good. What's the turnaround time?", es: "Bien. ¿Cuál es el tiempo de respuesta?" },
+            { speaker: "Supervisor", en: "At full capacity, we'll clear the backlog by 3 PM.", es: "A plena capacidad, despejamos la acumulación para las 15h." },
+            { speaker: "Manager", en: "Make it happen. And flag those lots as potentially lower quality.", es: "Que se haga. Y marca esos lotes como potencialmente menor calidad." }
+          ]
+        },
+        {
+          title: "Shift changeover",
+          lines: [
+            { speaker: "Day supervisor", en: "OK, shift changeover. Here's the summary.", es: "Vale, cambio de turno. Aquí va el resumen." },
+            { speaker: "Night supervisor", en: "How much did you process today?", es: "¿Cuánto habéis procesado hoy?" },
+            { speaker: "Day supervisor", en: "95 tons. Target was 100 but we had a 30-minute changeover for Arbequina.", es: "95 toneladas. El objetivo eran 100 pero tuvimos un cambio de 30 minutos para Arbequina." },
+            { speaker: "Night supervisor", en: "What's pending for tonight?", es: "¿Qué queda pendiente para esta noche?" },
+            { speaker: "Day supervisor", en: "40 tons waiting in reception. All Picual. Process on Line 1.", es: "40 toneladas esperando en recepción. Todo Picual. Procesar en Línea 1." },
+            { speaker: "Night supervisor", en: "Any equipment issues?", es: "¿Algún problema de equipo?" },
+            { speaker: "Day supervisor", en: "The pump on Line 2 is making noise. Keep an eye on it.", es: "La bomba de la Línea 2 hace ruido. Vigílala." },
+            { speaker: "Night supervisor", en: "Got it. I'll note it. See you tomorrow.", es: "Entendido. Lo anoto. Nos vemos mañana." }
+          ]
+        }
+      ],
+      exercises: [
+        { type: "multiple_choice", question: "'Backlog' means:", options: ["Accumulated work not yet done", "Back door log", "Backwards log", "Background logic"], answer: "Accumulated work not yet done" },
+        { type: "multiple_choice", question: "'Changeover' is:", options: ["Switching between lots/varieties", "Changing operators", "Changing oil", "Changing tanks"], answer: "Switching between lots/varieties" },
+        { type: "multiple_choice", question: "'Roster' is:", options: ["Work schedule/shift list", "Chicken", "List of clients", "Machine part"], answer: "Work schedule/shift list" },
+        { type: "fill_blank", question: "We're running double ___ this week.", answer: "shifts", hint: "s____s" },
+        { type: "fill_blank", question: "Fresh olives are always ___.", answer: "priority", hint: "p______y" },
+        { type: "translate", question: "Hay una acumulación de 50 toneladas de ayer", answer: "There's a 50-ton backlog from yesterday" },
+        { type: "translate", question: "La capacidad de la almazara es 10 toneladas por hora", answer: "The mill capacity is 10 tons per hour" },
+        { type: "order_words", question: "Reorder:", words: ["the", "Brief", "shift", "incoming", "leaving", "before"], answer: "Brief the incoming shift before leaving" },
+        { type: "order_words", question: "Reorder:", words: ["cleaning", "Include", "the", "in", "time", "schedule"], answer: "Include cleaning time in the schedule" },
+        { type: "match", question: "Match EN → ES", pairs: [["roster", "cuadrante"], ["backlog", "acumulación"], ["peak", "pico"], ["handover", "relevo"], ["overtime", "horas extra"]] }
+      ],
+      test: [
+        { question: "'Utilization rate' measures:", options: ["How much capacity is used", "How many staff are present", "Oil quality", "Temperature"], answer: "How much capacity is used" },
+        { question: "'Turnaround time' is:", options: ["Time from start to finish", "Time to turn around", "Break time", "Travel time"], answer: "Time from start to finish" },
+        { question: "Translate: 'Usar las horas valle para mantenimiento'", options: ["Use off-peak hours for maintenance", "Use overtime for cleaning", "Use night shift for repairs", "Use day shift for setup"], answer: "Use off-peak hours for maintenance" },
+        { question: "'Contingency plan' is for:", options: ["Unexpected problems", "Normal operations", "Holidays", "Staff parties"], answer: "Unexpected problems" },
+        { question: "'Coverage' means:", options: ["Having enough staff for all hours", "Insurance", "Roof covering", "Floor covering"], answer: "Having enough staff for all hours" },
+        { question: "'Off-peak' is:", options: ["Low activity period", "Mountain top", "High production time", "Emergency"], answer: "Low activity period" },
+        { question: "Translate: 'Se espera producción pico la semana que viene'", options: ["Peak production is expected next week", "Production stopped next week", "Normal production next week", "No production next week"], answer: "Peak production is expected next week" },
+        { question: "'Staffing levels' refers to:", options: ["Number of workers available", "Height of staff", "Staff salaries", "Staff skills"], answer: "Number of workers available" },
+        { question: "'Setup' before a new lot means:", options: ["Preparing equipment and settings", "Setting up chairs", "Installing new machines", "Hiring new staff"], answer: "Preparing equipment and settings" },
+        { question: "'Daily target' is:", options: ["What we aim to produce each day", "What we sell daily", "What we buy daily", "What we clean daily"], answer: "What we aim to produce each day" }
+      ]
+    },
+    {
+      id: "prod-4",
+      name: "Health, Safety & Environment",
+      vocabulary: [
+        { en: "safety rules", es: "normas de seguridad", example: "Follow safety rules at all times.", note: "" },
+        { en: "risk assessment", es: "evaluación de riesgos", example: "Complete the risk assessment before starting.", note: "" },
+        { en: "hazard", es: "peligro/riesgo", example: "Hot surfaces are a hazard.", note: "" },
+        { en: "precaution", es: "precaución", example: "Take precautions near machinery.", note: "" },
+        { en: "PPE", es: "EPI", example: "Wear PPE in production areas.", note: "Personal Protective Equipment" },
+        { en: "ear protection", es: "protección auditiva", example: "Ear protection near the crusher.", note: "" },
+        { en: "safety goggles", es: "gafas de seguridad", example: "Wear goggles when cleaning with chemicals.", note: "" },
+        { en: "non-slip boots", es: "botas antideslizantes", example: "Non-slip boots prevent falls.", note: "" },
+        { en: "hairnet", es: "redecilla", example: "Hairnets are mandatory in production.", note: "" },
+        { en: "fire risk", es: "riesgo de incendio", example: "Oil is a fire risk.", note: "" },
+        { en: "fire extinguisher", es: "extintor", example: "Know where the fire extinguishers are.", note: "" },
+        { en: "emergency exit", es: "salida de emergencia", example: "Keep emergency exits clear.", note: "" },
+        { en: "evacuation plan", es: "plan de evacuación", example: "Follow the evacuation plan.", note: "" },
+        { en: "assembly point", es: "punto de reunión", example: "Go to the assembly point if alarm sounds.", note: "" },
+        { en: "first aid", es: "primeros auxilios", example: "First aid kit is in the office.", note: "" },
+        { en: "burn", es: "quemadura", example: "Treat burns with cold water.", note: "" },
+        { en: "slip", es: "resbalón", example: "Oil on the floor causes slips.", note: "" },
+        { en: "fall", es: "caída", example: "Prevent falls by cleaning spills.", note: "" },
+        { en: "noise level", es: "nivel de ruido", example: "Noise level exceeds 85 dB.", note: "" },
+        { en: "decibel", es: "decibelio", example: "Ear protection above 85 decibels.", note: "" },
+        { en: "confined space", es: "espacio confinado", example: "Never enter a confined space alone.", note: "Depósitos, silos" },
+        { en: "lockout", es: "bloqueo", example: "Lockout the machine before maintenance.", note: "LOTO procedure" },
+        { en: "tagout", es: "señalización de bloqueo", example: "Tag the machine as locked out.", note: "" },
+        { en: "waste management", es: "gestión de residuos", example: "Follow waste management procedures.", note: "" },
+        { en: "emissions", es: "emisiones", example: "Monitor emissions from the boiler.", note: "" },
+        { en: "wastewater treatment", es: "tratamiento de aguas residuales", example: "Wastewater treatment is mandatory.", note: "" },
+        { en: "environmental impact", es: "impacto medioambiental", example: "Minimize our environmental impact.", note: "" },
+        { en: "sustainability", es: "sostenibilidad", example: "Sustainability is part of our values.", note: "" },
+        { en: "energy consumption", es: "consumo energético", example: "Reduce energy consumption where possible.", note: "" },
+        { en: "carbon footprint", es: "huella de carbono", example: "Calculate our carbon footprint.", note: "" }
+      ],
+      expressions: [
+        { en: "Wear PPE at all times in production", es: "Usar EPI en todo momento en producción" },
+        { en: "Complete the risk assessment first", es: "Completar la evaluación de riesgos primero" },
+        { en: "Never enter a confined space alone", es: "Nunca entrar en un espacio confinado solo" },
+        { en: "Lockout the machine before any repair", es: "Bloquear la máquina antes de cualquier reparación" },
+        { en: "Know where the emergency exits are", es: "Saber dónde están las salidas de emergencia" },
+        { en: "Clean up oil spills immediately", es: "Limpiar derrames de aceite inmediatamente" },
+        { en: "Ear protection is required near the crusher", es: "Protección auditiva obligatoria cerca del molino" },
+        { en: "Report all accidents, even minor ones", es: "Informar de todos los accidentes, incluso los menores" },
+        { en: "The evacuation plan is posted on the wall", es: "El plan de evacuación está colgado en la pared" },
+        { en: "Sustainability is one of our core values", es: "La sostenibilidad es uno de nuestros valores fundamentales" },
+        { en: "Wastewater must be treated before discharge", es: "El agua residual debe tratarse antes del vertido" },
+        { en: "Reduce energy consumption during off-peak", es: "Reducir consumo energético durante las horas valle" },
+        { en: "Hot surfaces must be clearly marked", es: "Las superficies calientes deben estar claramente señalizadas" },
+        { en: "Go to the assembly point if the alarm sounds", es: "Ir al punto de reunión si suena la alarma" },
+        { en: "Our carbon footprint is improving each year", es: "Nuestra huella de carbono mejora cada año" }
+      ],
+      dialogues: [
+        {
+          title: "Safety induction for new operator",
+          lines: [
+            { speaker: "Supervisor", en: "Welcome. Before you start, we do a safety induction.", es: "Bienvenido. Antes de empezar, hacemos una inducción de seguridad." },
+            { speaker: "New operator", en: "What do I need to know?", es: "¿Qué necesito saber?" },
+            { speaker: "Supervisor", en: "First, PPE. Hairnet, non-slip boots, ear protection near the crusher.", es: "Primero, EPI. Redecilla, botas antideslizantes, protección auditiva cerca del molino." },
+            { speaker: "New operator", en: "What about safety goggles?", es: "¿Y las gafas de seguridad?" },
+            { speaker: "Supervisor", en: "Only when using cleaning chemicals. Now, emergency exits.", es: "Solo cuando se usen productos de limpieza. Ahora, salidas de emergencia." },
+            { speaker: "New operator", en: "Where are they?", es: "¿Dónde están?" },
+            { speaker: "Supervisor", en: "Two exits: one at the back, one by the office. Assembly point is the parking lot.", es: "Dos salidas: una detrás, una junto a la oficina. Punto de reunión en el aparcamiento." },
+            { speaker: "New operator", en: "And first aid?", es: "¿Y primeros auxilios?" },
+            { speaker: "Supervisor", en: "Kit in the office. Three trained first aiders on each shift.", es: "Botiquín en la oficina. Tres personas formadas en primeros auxilios por turno." },
+            { speaker: "New operator", en: "Understood. Where do I sign?", es: "Entendido. ¿Dónde firmo?" }
+          ]
+        },
+        {
+          title: "Environmental discussion",
+          lines: [
+            { speaker: "Director", en: "We need to improve our environmental performance.", es: "Necesitamos mejorar nuestro desempeño medioambiental." },
+            { speaker: "Manager", en: "What areas are we focusing on?", es: "¿En qué áreas nos centramos?" },
+            { speaker: "Director", en: "Energy consumption, wastewater, and carbon footprint.", es: "Consumo energético, aguas residuales y huella de carbono." },
+            { speaker: "Manager", en: "We've already reduced energy by 8% with the new motors.", es: "Ya hemos reducido energía un 8% con los nuevos motores." },
+            { speaker: "Director", en: "Good. What about wastewater treatment?", es: "Bien. ¿Y el tratamiento de aguas residuales?" },
+            { speaker: "Manager", en: "The new treatment plant handles 100% of our wastewater.", es: "La nueva depuradora trata el 100% de nuestras aguas residuales." },
+            { speaker: "Director", en: "Excellent. And the pomace? Is it being used sustainably?", es: "Excelente. ¿Y el orujo? ¿Se aprovecha de forma sostenible?" },
+            { speaker: "Manager", en: "Yes, it goes to the extraction plant and then for biomass energy.", es: "Sí, va a la extractora y después para energía de biomasa." },
+            { speaker: "Director", en: "Perfect. Include this in the sustainability report.", es: "Perfecto. Incluye esto en el informe de sostenibilidad." }
+          ]
+        },
+        {
+          title: "Accident reporting",
+          lines: [
+            { speaker: "Operator", en: "I slipped on some oil near the decanter and hurt my knee.", es: "Resbalé con aceite cerca del decánter y me hice daño en la rodilla." },
+            { speaker: "Supervisor", en: "Are you OK? Can you walk?", es: "¿Estás bien? ¿Puedes caminar?" },
+            { speaker: "Operator", en: "Yes, it's just a bruise. Nothing serious.", es: "Sí, es solo un golpe. Nada serio." },
+            { speaker: "Supervisor", en: "Even so, we need to report it. Get it checked at first aid.", es: "Aun así, hay que reportarlo. Que te lo miren en primeros auxilios." },
+            { speaker: "Operator", en: "Is the accident form necessary for a minor injury?", es: "¿Es necesario el parte de accidente para una lesión menor?" },
+            { speaker: "Supervisor", en: "Yes, always. All accidents must be reported, even minor ones.", es: "Sí, siempre. Todos los accidentes deben reportarse, incluso los menores." },
+            { speaker: "Operator", en: "OK. Should we clean the spill first?", es: "Vale. ¿Limpiamos el derrame primero?" },
+            { speaker: "Supervisor", en: "Absolutely. I'll cordon the area and get it cleaned. No one else should slip.", es: "Por supuesto. Acordono la zona y la limpio. Que no resbale nadie más." }
+          ]
+        }
+      ],
+      exercises: [
+        { type: "multiple_choice", question: "'Hazard' means:", options: ["Peligro/riesgo", "Azar", "Suerte", "Niebla"], answer: "Peligro/riesgo" },
+        { type: "multiple_choice", question: "'Lockout/tagout' is for:", options: ["Safely isolating machines for maintenance", "Locking the door", "Tagging products", "Logging out of computers"], answer: "Safely isolating machines for maintenance" },
+        { type: "multiple_choice", question: "'Carbon footprint' measures:", options: ["Environmental impact from CO2", "Foot size", "Walking distance", "Carbon in oil"], answer: "Environmental impact from CO2" },
+        { type: "fill_blank", question: "Never enter a confined ___ alone.", answer: "space", hint: "s___e" },
+        { type: "fill_blank", question: "Ear protection above 85 ___.", answer: "decibels", hint: "d______s" },
+        { type: "translate", question: "Usar EPI en todo momento en producción", answer: "Wear PPE at all times in production" },
+        { type: "translate", question: "Limpiar derrames de aceite inmediatamente", answer: "Clean up oil spills immediately" },
+        { type: "order_words", question: "Reorder:", words: ["the", "Know", "exits", "emergency", "are", "where"], answer: "Know where the emergency exits are" },
+        { type: "order_words", question: "Reorder:", words: ["all", "Report", "even", "accidents", "ones", "minor"], answer: "Report all accidents even minor ones" },
+        { type: "match", question: "Match EN → ES", pairs: [["hazard", "peligro"], ["burn", "quemadura"], ["slip", "resbalón"], ["noise", "ruido"], ["waste", "residuo"]] }
+      ],
+      test: [
+        { question: "'Risk assessment' is done:", options: ["Before starting any task", "After an accident", "Once a year", "Never"], answer: "Before starting any task" },
+        { question: "'Assembly point' is where you:", options: ["Gather during evacuation", "Assemble machines", "Meet for lunch", "Park your car"], answer: "Gather during evacuation" },
+        { question: "Translate: 'Bloquear la máquina antes de reparar'", options: ["Lockout the machine before repair", "Start the machine for repair", "Clean the machine after repair", "Test the machine during repair"], answer: "Lockout the machine before repair" },
+        { question: "'Confined space' examples:", options: ["Inside tanks and silos", "Large rooms", "Open fields", "Parking lots"], answer: "Inside tanks and silos" },
+        { question: "'Sustainability' means:", options: ["Meeting needs without harming the future", "Working faster", "Producing more", "Spending less"], answer: "Meeting needs without harming the future" },
+        { question: "'Non-slip boots' prevent:", options: ["Falls on wet/oily floors", "Cold feet", "Blisters", "Dust"], answer: "Falls on wet/oily floors" },
+        { question: "Translate: 'La sostenibilidad es uno de nuestros valores'", options: ["Sustainability is one of our values", "Safety is our priority", "Quality is our focus", "Production is our goal"], answer: "Sustainability is one of our values" },
+        { question: "'Emissions' from a mill come from:", options: ["Boiler and machinery", "Trees", "Oil bottles", "Office equipment"], answer: "Boiler and machinery" },
+        { question: "'Wastewater treatment' is:", options: ["Mandatory by law", "Optional", "Only for big mills", "Not necessary"], answer: "Mandatory by law" },
+        { question: "Oil spills on the floor cause:", options: ["Slips and falls", "Better quality", "Faster production", "No problems"], answer: "Slips and falls" }
+      ]
+    },
+]
   },
   {
     id: "comercial",
@@ -479,8 +719,249 @@ const MODULES_DATA = [
           { question: "Best way to end a formal email:", options: ["I look forward to hearing from you", "Talk soon!", "Later!", "XOXO"], answer: "I look forward to hearing from you" },
           { question: "'Documentation' means:", options: ["Documentación", "Documento único", "Documental", "Doctor"], answer: "Documentación" }
         ]
-      }
-    ]
+      },
+{
+      id: "com-3",
+      name: "Phone Calls & Meetings",
+      vocabulary: [
+        { en: "phone call", es: "llamada telefónica", example: "I have a phone call at 3.", note: "" },
+        { en: "conference call", es: "conferencia/llamada grupal", example: "Join the conference call at 10.", note: "" },
+        { en: "video call", es: "videollamada", example: "Set up a video call with the client.", note: "" },
+        { en: "voicemail", es: "buzón de voz", example: "Leave a voicemail if no answer.", note: "" },
+        { en: "hold", es: "espera", example: "Can you hold for a moment?", note: "" },
+        { en: "transfer", es: "transferir/pasar", example: "I'll transfer you to the sales department.", note: "" },
+        { en: "extension", es: "extensión", example: "My extension is 204.", note: "" },
+        { en: "dial", es: "marcar", example: "Dial the country code first.", note: "" },
+        { en: "hang up", es: "colgar", example: "Don't hang up, I'll check.", note: "" },
+        { en: "call back", es: "devolver la llamada", example: "I'll call you back in 10 minutes.", note: "" },
+        { en: "meeting", es: "reunión", example: "The meeting starts at 9.", note: "" },
+        { en: "agenda", es: "orden del día", example: "What's on the agenda?", note: "" },
+        { en: "minutes", es: "acta", example: "I'll take the minutes.", note: "" },
+        { en: "action point", es: "acción/tarea", example: "Three action points from today.", note: "" },
+        { en: "follow-up", es: "seguimiento", example: "Schedule a follow-up meeting.", note: "" },
+        { en: "attendee", es: "asistente/participante", example: "All attendees confirmed.", note: "" },
+        { en: "chair", es: "presidir/moderar", example: "Pedro will chair the meeting.", note: "Verbo" },
+        { en: "postpone", es: "posponer", example: "Postpone the meeting to Thursday.", note: "" },
+        { en: "cancel", es: "cancelar", example: "Cancel the afternoon call.", note: "" },
+        { en: "reschedule", es: "reprogramar", example: "Can we reschedule for next week?", note: "" },
+        { en: "available", es: "disponible", example: "I'm available after 2 PM.", note: "" },
+        { en: "busy", es: "ocupado", example: "He's in a meeting, he's busy.", note: "" },
+        { en: "appointment", es: "cita", example: "I have an appointment at 11.", note: "" },
+        { en: "slot", es: "hueco/horario", example: "Is there a slot on Wednesday?", note: "" },
+        { en: "time zone", es: "zona horaria", example: "Japan is 8 hours ahead.", note: "" },
+        { en: "introduce", es: "presentar", example: "Let me introduce my colleague.", note: "" },
+        { en: "purpose", es: "propósito/motivo", example: "The purpose of this call is...", note: "" },
+        { en: "wrap up", es: "concluir/resumir", example: "Let's wrap up. Any final questions?", note: "" },
+        { en: "take note", es: "tomar nota", example: "Let me take note of that.", note: "" },
+        { en: "get back to", es: "responder/volver a contactar", example: "I'll get back to you tomorrow.", note: "" }
+      ],
+      expressions: [
+        { en: "Good morning, how can I help you?", es: "Buenos días, ¿en qué puedo ayudarle?" },
+        { en: "Can you hold for a moment, please?", es: "¿Puede esperar un momento, por favor?" },
+        { en: "I'll transfer you to the export department", es: "Le paso con el departamento de exportación" },
+        { en: "I'm calling regarding your order", es: "Llamo en relación a su pedido" },
+        { en: "Can I leave a message?", es: "¿Puedo dejar un mensaje?" },
+        { en: "I'll call you back this afternoon", es: "Le devuelvo la llamada esta tarde" },
+        { en: "The purpose of this meeting is to discuss prices", es: "El propósito de esta reunión es discutir precios" },
+        { en: "Let me introduce my colleague from quality", es: "Permítame presentarle a mi compañero de calidad" },
+        { en: "Can we reschedule for next week?", es: "¿Podemos reprogramar para la semana que viene?" },
+        { en: "I'm available on Tuesday afternoon", es: "Estoy disponible el martes por la tarde" },
+        { en: "Let's wrap up. I'll send the minutes tomorrow", es: "Concluyamos. Envío el acta mañana" },
+        { en: "There are three action points from this meeting", es: "Hay tres acciones de esta reunión" },
+        { en: "I'll get back to you with the information", es: "Le respondo con la información" },
+        { en: "What time works for you considering the time zone?", es: "¿Qué hora le viene bien considerando la zona horaria?" },
+        { en: "Let me take note of your requirements", es: "Permítame tomar nota de sus requisitos" }
+      ],
+      dialogues: [
+        {
+          title: "Answering a client call",
+          lines: [
+            { speaker: "Receptionist", en: "Good morning, Aceites Guadalquivir. How can I help you?", es: "Buenos días, Aceites Guadalquivir. ¿En qué puedo ayudarle?" },
+            { speaker: "Client", en: "Hello, I'd like to speak with someone in the export department.", es: "Hola, me gustaría hablar con alguien del departamento de exportación." },
+            { speaker: "Receptionist", en: "Of course. May I ask who's calling?", es: "Por supuesto. ¿Puedo preguntar quién llama?" },
+            { speaker: "Client", en: "This is John from Thames Foods, London.", es: "Soy John de Thames Foods, Londres." },
+            { speaker: "Receptionist", en: "Thank you, Mr. John. Can you hold for a moment? I'll transfer you.", es: "Gracias, Sr. John. ¿Puede esperar un momento? Le paso." },
+            { speaker: "Client", en: "Of course.", es: "Por supuesto." },
+            { speaker: "Export", en: "Hello, this is Pedro from export. How can I help you, John?", es: "Hola, soy Pedro de exportación. ¿En qué puedo ayudarle, John?" },
+            { speaker: "Client", en: "Hi Pedro. I'm calling regarding our last order. There's a delivery issue.", es: "Hola Pedro. Llamo en relación a nuestro último pedido. Hay un problema con la entrega." },
+            { speaker: "Export", en: "Let me take note of the details. What's the order number?", es: "Permítame tomar nota de los detalles. ¿Cuál es el número de pedido?" },
+            { speaker: "Client", en: "PO-7834. The shipment was supposed to arrive last Friday.", es: "PO-7834. El envío debía llegar el viernes pasado." }
+          ]
+        },
+        {
+          title: "Setting up a meeting",
+          lines: [
+            { speaker: "Sales", en: "We need to set up a meeting with the Japanese distributor.", es: "Necesitamos organizar una reunión con el distribuidor japonés." },
+            { speaker: "Admin", en: "What's the time difference?", es: "¿Cuál es la diferencia horaria?" },
+            { speaker: "Sales", en: "Japan is 8 hours ahead. So our morning is their evening.", es: "Japón va 8 horas adelantado. Así que nuestra mañana es su tarde-noche." },
+            { speaker: "Admin", en: "What about 8 AM our time? That's 4 PM in Tokyo.", es: "¿Qué tal a las 8 de la mañana hora nuestra? Son las 16h en Tokio." },
+            { speaker: "Sales", en: "Perfect. Set up a video call for next Tuesday at 8.", es: "Perfecto. Organiza una videollamada para el martes que viene a las 8." },
+            { speaker: "Admin", en: "Who should attend?", es: "¿Quién debe asistir?" },
+            { speaker: "Sales", en: "Me, the quality manager, and the export coordinator.", es: "Yo, el responsable de calidad y el coordinador de exportación." },
+            { speaker: "Admin", en: "I'll send the invitations and prepare the agenda.", es: "Envío las invitaciones y preparo el orden del día." }
+          ]
+        },
+        {
+          title: "Wrapping up a meeting",
+          lines: [
+            { speaker: "Chair", en: "OK, let's wrap up. We have three action points.", es: "Vale, concluyamos. Tenemos tres acciones." },
+            { speaker: "Chair", en: "First, Pedro sends the revised quote by Wednesday.", es: "Primero, Pedro envía el presupuesto revisado antes del miércoles." },
+            { speaker: "Pedro", en: "Confirmed. I'll include the new shipping costs.", es: "Confirmado. Incluiré los nuevos costes de envío." },
+            { speaker: "Chair", en: "Second, quality sends the latest lab certificates to the client.", es: "Segundo, calidad envía los últimos certificados del laboratorio al cliente." },
+            { speaker: "Quality", en: "I'll do that today.", es: "Lo hago hoy." },
+            { speaker: "Chair", en: "Third, we schedule a follow-up call for next Friday.", es: "Tercero, programamos una llamada de seguimiento para el viernes que viene." },
+            { speaker: "Pedro", en: "What time?", es: "¿A qué hora?" },
+            { speaker: "Chair", en: "10 AM. I'll send the invite. Any questions? No? Meeting closed.", es: "10 de la mañana. Envío la invitación. ¿Alguna pregunta? ¿No? Reunión cerrada." }
+          ]
+        }
+      ],
+      exercises: [
+        { type: "multiple_choice", question: "'Can you hold?' means:", options: ["Can you wait?", "Can you hold this?", "Can you come?", "Can you leave?"], answer: "Can you wait?" },
+        { type: "multiple_choice", question: "'Action point' is:", options: ["A task to do after the meeting", "A bullet point", "A sales target", "A quality test"], answer: "A task to do after the meeting" },
+        { type: "multiple_choice", question: "'Time zone' is important for:", options: ["International calls", "Local delivery", "Quality testing", "Production planning"], answer: "International calls" },
+        { type: "fill_blank", question: "I'll ___ you back this afternoon.", answer: "call", hint: "c__l" },
+        { type: "fill_blank", question: "Can we ___ for next week?", answer: "reschedule", hint: "r_________e" },
+        { type: "translate", question: "Le paso con el departamento de exportación", answer: "I'll transfer you to the export department" },
+        { type: "translate", question: "Concluyamos. Envío el acta mañana", answer: "Let's wrap up. I'll send the minutes tomorrow" },
+        { type: "order_words", question: "Reorder:", words: ["can", "How", "you", "help", "I"], answer: "How can I help you" },
+        { type: "order_words", question: "Reorder:", words: ["calling", "I'm", "your", "regarding", "order"], answer: "I'm calling regarding your order" },
+        { type: "match", question: "Match EN → ES", pairs: [["voicemail", "buzón de voz"], ["agenda", "orden del día"], ["attendee", "asistente"], ["postpone", "posponer"], ["slot", "hueco"]] }
+      ],
+      test: [
+        { question: "'Extension' in phone context:", options: ["Internal number", "Cable length", "Extra time", "Building addition"], answer: "Internal number" },
+        { question: "'Chair' a meeting means:", options: ["Lead/moderate the meeting", "Sit on a chair", "Carry chairs", "Arrange furniture"], answer: "Lead/moderate the meeting" },
+        { question: "Translate: '¿Puedo dejar un mensaje?'", options: ["Can I leave a message?", "Can I take a message?", "Can I send a message?", "Can I read a message?"], answer: "Can I leave a message?" },
+        { question: "'Wrap up' means:", options: ["Conclude/finish", "Pack a gift", "Cover with paper", "Start again"], answer: "Conclude/finish" },
+        { question: "'Get back to you' means:", options: ["Reply/respond later", "Go back physically", "Return a product", "Cancel the order"], answer: "Reply/respond later" },
+        { question: "'Conference call' involves:", options: ["Multiple participants", "Only two people", "No phone", "Only email"], answer: "Multiple participants" },
+        { question: "Translate: 'Estoy disponible el martes por la tarde'", options: ["I'm available on Tuesday afternoon", "I'm busy on Tuesday", "I'm leaving on Tuesday", "I'm calling on Tuesday"], answer: "I'm available on Tuesday afternoon" },
+        { question: "'Minutes' of a meeting are:", options: ["Written record of what was discussed", "How long it lasted", "How many people attended", "The time it started"], answer: "Written record of what was discussed" },
+        { question: "'Purpose' of a call:", options: ["Reason for calling", "Cost of the call", "Duration of the call", "Quality of the call"], answer: "Reason for calling" },
+        { question: "'Follow-up' meeting is:", options: ["A subsequent meeting to check progress", "The first meeting", "A canceled meeting", "An annual meeting"], answer: "A subsequent meeting to check progress" }
+      ]
+    },
+    {
+      id: "com-4",
+      name: "Negotiation & Closing Deals",
+      vocabulary: [
+        { en: "negotiate", es: "negociar", example: "Let's negotiate the terms.", note: "" },
+        { en: "proposal", es: "propuesta", example: "Here's our proposal.", note: "" },
+        { en: "counteroffer", es: "contraoferta", example: "Their counteroffer is 5% lower.", note: "" },
+        { en: "concession", es: "concesión", example: "We can make a concession on delivery.", note: "" },
+        { en: "compromise", es: "compromiso/término medio", example: "Let's find a compromise.", note: "" },
+        { en: "bottom line", es: "precio mínimo/línea roja", example: "Our bottom line is €3.80 per liter.", note: "" },
+        { en: "leverage", es: "ventaja/posición de fuerza", example: "Quality gives us leverage.", note: "" },
+        { en: "terms", es: "condiciones/términos", example: "Agree on the payment terms.", note: "" },
+        { en: "clause", es: "cláusula", example: "Add a penalty clause for late delivery.", note: "" },
+        { en: "exclusivity", es: "exclusividad", example: "They want exclusivity in the UK.", note: "" },
+        { en: "volume commitment", es: "compromiso de volumen", example: "A volume commitment gets better pricing.", note: "" },
+        { en: "annual contract", es: "contrato anual", example: "Sign an annual contract.", note: "" },
+        { en: "trial order", es: "pedido de prueba", example: "Start with a trial order.", note: "" },
+        { en: "partnership", es: "colaboración/asociación", example: "We see this as a long-term partnership.", note: "" },
+        { en: "mutual benefit", es: "beneficio mutuo", example: "The deal should be of mutual benefit.", note: "" },
+        { en: "agreement", es: "acuerdo", example: "We've reached an agreement.", note: "" },
+        { en: "handshake", es: "apretón de manos", example: "Sealed with a handshake.", note: "" },
+        { en: "sign", es: "firmar", example: "Sign the contract today.", note: "" },
+        { en: "close the deal", es: "cerrar el trato", example: "We closed the deal yesterday.", note: "" },
+        { en: "walk away", es: "retirarse/abandonar", example: "Be prepared to walk away.", note: "" },
+        { en: "win-win", es: "ganar-ganar", example: "This is a win-win situation.", note: "" },
+        { en: "stalemate", es: "punto muerto", example: "Negotiations are at a stalemate.", note: "" },
+        { en: "break", es: "pausa/descanso", example: "Let's take a break and think.", note: "" },
+        { en: "flexibility", es: "flexibilidad", example: "We need some flexibility on dates.", note: "" },
+        { en: "condition", es: "condición", example: "One condition: minimum 12-month contract.", note: "" },
+        { en: "guarantee", es: "garantía", example: "We guarantee consistent quality.", note: "" },
+        { en: "penalty", es: "penalización", example: "Late delivery penalty is 2% per week.", note: "" },
+        { en: "milestone", es: "hito", example: "First milestone: trial order completed.", note: "" },
+        { en: "timeline", es: "cronograma/calendario", example: "What's the timeline for decision?", note: "" },
+        { en: "decision maker", es: "responsable de decisión", example: "Who's the decision maker?", note: "" }
+      ],
+      expressions: [
+        { en: "Let's find a compromise that works for both sides", es: "Busquemos un compromiso que funcione para ambas partes" },
+        { en: "Our bottom line is €3.80 per liter", es: "Nuestro precio mínimo es 3,80€ por litro" },
+        { en: "We can offer exclusivity for a volume commitment", es: "Podemos ofrecer exclusividad a cambio de un compromiso de volumen" },
+        { en: "This should be a win-win for both parties", es: "Esto debería ser un ganar-ganar para ambas partes" },
+        { en: "We're prepared to make a concession on delivery terms", es: "Estamos dispuestos a hacer una concesión en las condiciones de entrega" },
+        { en: "Let's start with a trial order to build trust", es: "Empecemos con un pedido de prueba para generar confianza" },
+        { en: "We see this as a long-term partnership", es: "Vemos esto como una colaboración a largo plazo" },
+        { en: "We've reached an agreement on all points", es: "Hemos llegado a un acuerdo en todos los puntos" },
+        { en: "What's your timeline for making a decision?", es: "¿Cuál es su calendario para tomar una decisión?" },
+        { en: "We guarantee consistent quality and supply", es: "Garantizamos calidad y suministro constantes" },
+        { en: "The penalty clause protects both parties", es: "La cláusula de penalización protege a ambas partes" },
+        { en: "Who is the decision maker on your side?", es: "¿Quién es el responsable de decisión en su lado?" },
+        { en: "We need some flexibility on the delivery dates", es: "Necesitamos algo de flexibilidad en las fechas de entrega" },
+        { en: "Let's sign the contract and celebrate", es: "Firmemos el contrato y celebremos" },
+        { en: "I'd rather walk away than sell below cost", es: "Prefiero retirarme que vender por debajo de coste" }
+      ],
+      dialogues: [
+        {
+          title: "Price negotiation with a new client",
+          lines: [
+            { speaker: "Client", en: "Your price is €4.20 per liter. Our budget is €3.50.", es: "Su precio es 4,20€ por litro. Nuestro presupuesto es 3,50€." },
+            { speaker: "Sales", en: "I understand. But our oil is premium certified organic EVOO.", es: "Entiendo. Pero nuestro aceite es AOVE ecológico certificado premium." },
+            { speaker: "Client", en: "Quality is important, but the price gap is significant.", es: "La calidad es importante, pero la diferencia de precio es significativa." },
+            { speaker: "Sales", en: "What if we offer €3.90 for a 12-month volume commitment of 50,000 liters?", es: "¿Y si ofrecemos 3,90€ para un compromiso de volumen de 50.000 litros a 12 meses?" },
+            { speaker: "Client", en: "That's closer. Can you do €3.80?", es: "Eso se acerca. ¿Puede hacer 3,80€?" },
+            { speaker: "Sales", en: "€3.80 is our bottom line. But I need a firm volume commitment.", es: "3,80€ es nuestro mínimo. Pero necesito un compromiso de volumen firme." },
+            { speaker: "Client", en: "60,000 liters over 12 months. With quarterly deliveries.", es: "60.000 litros en 12 meses. Con entregas trimestrales." },
+            { speaker: "Sales", en: "That works. Let me add a penalty clause for late payment: 2% per month.", es: "Eso funciona. Déjeme añadir una cláusula de penalización por impago: 2% mensual." },
+            { speaker: "Client", en: "Fair enough. We have a deal.", es: "Justo. Tenemos un trato." },
+            { speaker: "Sales", en: "Excellent. I'll prepare the contract and send it by Friday.", es: "Excelente. Preparo el contrato y lo envío antes del viernes." }
+          ]
+        },
+        {
+          title: "Negotiation at a stalemate",
+          lines: [
+            { speaker: "Client", en: "We can't go above €3.20. That's our final offer.", es: "No podemos pasar de 3,20€. Es nuestra oferta final." },
+            { speaker: "Sales", en: "At €3.20 we're below production cost. That's not viable.", es: "A 3,20€ estamos por debajo del coste de producción. No es viable." },
+            { speaker: "Client", en: "Your competitors in Tunisia offer similar quality for less.", es: "Sus competidores en Túnez ofrecen calidad similar por menos." },
+            { speaker: "Sales", en: "With respect, our organic PDO certification is not comparable.", es: "Con respeto, nuestra certificación ecológica DOP no es comparable." },
+            { speaker: "Client", en: "I understand, but my board won't approve above €3.20.", es: "Entiendo, pero mi junta no aprobará por encima de 3,20€." },
+            { speaker: "Sales", en: "Let's take a different approach. What about a trial with our standard virgin at €3.20?", es: "Enfoquémoslo de otra manera. ¿Qué tal una prueba con nuestro virgen estándar a 3,20€?" },
+            { speaker: "Client", en: "Standard virgin? Not extra virgin?", es: "¿Virgen estándar? ¿No virgen extra?" },
+            { speaker: "Sales", en: "It's still excellent quality. Once your customers taste it, we can discuss upgrading to EVOO.", es: "Sigue siendo excelente calidad. Cuando sus clientes lo prueben, podemos hablar de subir a AOVE." },
+            { speaker: "Client", en: "That could work. Send me samples of both.", es: "Eso podría funcionar. Envíeme muestras de ambos." }
+          ]
+        },
+        {
+          title: "Closing a partnership agreement",
+          lines: [
+            { speaker: "Director", en: "We've been negotiating for three months. Are we ready to close?", es: "Llevamos tres meses negociando. ¿Estamos listos para cerrar?" },
+            { speaker: "Partner", en: "Almost. One remaining point: exclusivity in Scandinavia.", es: "Casi. Un punto pendiente: exclusividad en Escandinavia." },
+            { speaker: "Director", en: "We can offer exclusivity for Sweden and Denmark, but not Norway.", es: "Podemos ofrecer exclusividad para Suecia y Dinamarca, pero no Noruega." },
+            { speaker: "Partner", en: "Why not Norway?", es: "¿Por qué no Noruega?" },
+            { speaker: "Director", en: "We already have a distributor there. But if they don't meet targets, we can revisit.", es: "Ya tenemos distribuidor ahí. Pero si no cumplen objetivos, podemos revisarlo." },
+            { speaker: "Partner", en: "OK, that's a fair compromise. I accept.", es: "Vale, es un compromiso justo. Acepto." },
+            { speaker: "Director", en: "Excellent. This is a win-win partnership. Let's sign.", es: "Excelente. Es una colaboración ganar-ganar. Firmemos." },
+            { speaker: "Partner", en: "Agreed. Here's to a successful partnership.", es: "De acuerdo. Por una colaboración exitosa." }
+          ]
+        }
+      ],
+      exercises: [
+        { type: "multiple_choice", question: "'Bottom line' means:", options: ["Minimum acceptable price", "Last line of text", "Floor level", "Bank balance"], answer: "Minimum acceptable price" },
+        { type: "multiple_choice", question: "'Win-win' means:", options: ["Both parties benefit", "Only one wins", "Nobody wins", "Competition"], answer: "Both parties benefit" },
+        { type: "multiple_choice", question: "'Trial order' is:", options: ["A first small order to test", "A court order", "A free sample", "An emergency order"], answer: "A first small order to test" },
+        { type: "fill_blank", question: "Let's find a ___ that works for both.", answer: "compromise", hint: "c_________e" },
+        { type: "fill_blank", question: "We've reached an ___ on all points.", answer: "agreement", hint: "a________t" },
+        { type: "translate", question: "Vemos esto como una colaboración a largo plazo", answer: "We see this as a long-term partnership" },
+        { type: "translate", question: "¿Quién es el responsable de decisión?", answer: "Who is the decision maker?" },
+        { type: "order_words", question: "Reorder:", words: ["the", "Sign", "and", "contract", "celebrate"], answer: "Sign the contract and celebrate" },
+        { type: "order_words", question: "Reorder:", words: ["deal", "closed", "We", "yesterday", "the"], answer: "We closed the deal yesterday" },
+        { type: "match", question: "Match EN → ES", pairs: [["concession", "concesión"], ["clause", "cláusula"], ["penalty", "penalización"], ["leverage", "ventaja"], ["stalemate", "punto muerto"]] }
+      ],
+      test: [
+        { question: "'Counteroffer' is:", options: ["A response offer to the original", "The first offer", "A discount", "A refusal"], answer: "A response offer to the original" },
+        { question: "'Exclusivity' means:", options: ["Only one distributor in an area", "Multiple distributors", "Open competition", "No restrictions"], answer: "Only one distributor in an area" },
+        { question: "Translate: 'Busquemos un compromiso'", options: ["Let's find a compromise", "Let's make a commitment", "Let's cancel the deal", "Let's walk away"], answer: "Let's find a compromise" },
+        { question: "'Walk away' means:", options: ["Leave the negotiation", "Walk to the meeting", "Accept the offer", "Sign the contract"], answer: "Leave the negotiation" },
+        { question: "'Volume commitment' is:", options: ["Agreeing to buy a minimum quantity", "Turning up the volume", "Speaking louder", "A large container"], answer: "Agreeing to buy a minimum quantity" },
+        { question: "'Milestone' in a deal:", options: ["A key checkpoint or achievement", "A stone marker", "A distance measure", "A deadline"], answer: "A key checkpoint or achievement" },
+        { question: "Translate: 'La cláusula de penalización protege a ambas partes'", options: ["The penalty clause protects both parties", "The clause penalizes both parties", "Both parties reject the clause", "The penalty is too high"], answer: "The penalty clause protects both parties" },
+        { question: "'Flexibility' in negotiation means:", options: ["Willingness to adjust terms", "Physical exercise", "Being weak", "Giving everything away"], answer: "Willingness to adjust terms" },
+        { question: "'Mutual benefit' means:", options: ["Both sides gain", "Only seller gains", "Only buyer gains", "Nobody gains"], answer: "Both sides gain" },
+        { question: "'Close the deal' means:", options: ["Finalize the agreement", "Close the door", "End the relationship", "Cancel the order"], answer: "Finalize the agreement" }
+      ]
+    },
+]
   },
   {
     id: "exportacion",
@@ -707,8 +1188,253 @@ const MODULES_DATA = [
           { question: "'Campaign' means:", options: ["Campaña", "Campo", "Campamento", "Campana"], answer: "Campaña" },
           { question: "'Regulatory compliance' means:", options: ["Cumplimiento normativo", "Regulación competitiva", "Regla obligatoria", "Norma opcional"], answer: "Cumplimiento normativo" }
         ]
-      }
-    ]
+      },
+{
+      id: "exp-3",
+      name: "Export Documentation",
+      vocabulary: [
+        { en: "commercial invoice", es: "factura comercial", example: "The commercial invoice must match the order.", note: "" },
+        { en: "proforma invoice", es: "factura proforma", example: "Send a proforma before shipping.", note: "" },
+        { en: "packing list", es: "lista de empaque/albarán", example: "The packing list details every item.", note: "" },
+        { en: "bill of lading", es: "conocimiento de embarque", example: "The B/L is the key shipping document.", note: "B/L" },
+        { en: "certificate of origin", es: "certificado de origen", example: "Stamped by the Chamber of Commerce.", note: "" },
+        { en: "health certificate", es: "certificado sanitario", example: "Valid for 30 days.", note: "" },
+        { en: "phytosanitary certificate", es: "certificado fitosanitario", example: "Required for food exports.", note: "" },
+        { en: "EUR1", es: "EUR1", example: "EUR1 gives preferential tariff.", note: "" },
+        { en: "customs declaration", es: "declaración aduanera", example: "File the customs declaration electronically.", note: "DUA" },
+        { en: "HS code", es: "código arancelario", example: "Olive oil HS code is 1509.", note: "Harmonized System" },
+        { en: "EORI number", es: "número EORI", example: "Our EORI is needed for EU exports.", note: "" },
+        { en: "letter of credit", es: "carta de crédito", example: "Payment by letter of credit.", note: "L/C" },
+        { en: "bank guarantee", es: "garantía bancaria", example: "A bank guarantee secures the payment.", note: "" },
+        { en: "wire transfer", es: "transferencia bancaria", example: "Payment by wire transfer.", note: "" },
+        { en: "SWIFT code", es: "código SWIFT", example: "Our SWIFT code is on the invoice.", note: "" },
+        { en: "IBAN", es: "IBAN", example: "Include the IBAN for bank transfers.", note: "" },
+        { en: "consignee", es: "consignatario/destinatario", example: "The consignee receives the goods.", note: "" },
+        { en: "shipper", es: "expedidor/cargador", example: "We are the shipper.", note: "" },
+        { en: "notify party", es: "parte a notificar", example: "The notify party is the import agent.", note: "" },
+        { en: "freight forwarder", es: "transitario", example: "The freight forwarder handles logistics.", note: "" },
+        { en: "customs broker", es: "agente de aduanas", example: "The customs broker clears the goods.", note: "" },
+        { en: "duty rate", es: "tipo arancelario", example: "Duty rate is 5% for this product.", note: "" },
+        { en: "VAT", es: "IVA", example: "VAT is zero-rated for exports.", note: "" },
+        { en: "embargo", es: "embargo", example: "Check for any trade embargo.", note: "" },
+        { en: "sanction", es: "sanción", example: "Sanctions prohibit trade with certain countries.", note: "" },
+        { en: "compliance", es: "cumplimiento", example: "Export compliance is critical.", note: "" },
+        { en: "regulation", es: "regulación/normativa", example: "Follow EU export regulations.", note: "" },
+        { en: "labeling requirements", es: "requisitos de etiquetado", example: "Each country has different labeling requirements.", note: "" },
+        { en: "nutritional information", es: "información nutricional", example: "Nutritional information is mandatory.", note: "" },
+        { en: "allergen declaration", es: "declaración de alérgenos", example: "Allergen declaration must be on the label.", note: "" }
+      ],
+      expressions: [
+        { en: "The commercial invoice must match the B/L", es: "La factura comercial debe coincidir con el B/L" },
+        { en: "Send the proforma invoice for customs clearance", es: "Enviar la factura proforma para el despacho de aduanas" },
+        { en: "The certificate of origin needs stamping", es: "El certificado de origen necesita sellarse" },
+        { en: "Payment is by irrevocable letter of credit", es: "El pago es mediante carta de crédito irrevocable" },
+        { en: "Our freight forwarder handles all logistics", es: "Nuestro transitario gestiona toda la logística" },
+        { en: "HS code for extra virgin olive oil is 1509", es: "El código arancelario para AOVE es 1509" },
+        { en: "VAT is zero-rated on exports outside the EU", es: "El IVA es cero para exportaciones fuera de la UE" },
+        { en: "Check labeling requirements for the destination country", es: "Comprobar requisitos de etiquetado del país de destino" },
+        { en: "The EORI number must appear on all documents", es: "El número EORI debe aparecer en todos los documentos" },
+        { en: "File the customs declaration before the ship sails", es: "Presentar la declaración aduanera antes de que zarpe el barco" },
+        { en: "Nutritional information must be on every label", es: "La información nutricional debe estar en cada etiqueta" },
+        { en: "Wire transfer confirmed. Shipment can proceed", es: "Transferencia confirmada. El envío puede proceder" },
+        { en: "Include IBAN and SWIFT code on the invoice", es: "Incluir IBAN y código SWIFT en la factura" },
+        { en: "The customs broker will clear the goods on arrival", es: "El agente de aduanas despachará la mercancía a la llegada" },
+        { en: "Export compliance must be checked for every destination", es: "El cumplimiento de exportación debe verificarse para cada destino" }
+      ],
+      dialogues: [
+        {
+          title: "Preparing export documents",
+          lines: [
+            { speaker: "Export", en: "I'm preparing the documents for the Saudi Arabia shipment.", es: "Estoy preparando los documentos para el envío a Arabia Saudí." },
+            { speaker: "Admin", en: "What documents do they need?", es: "¿Qué documentos necesitan?" },
+            { speaker: "Export", en: "Commercial invoice, packing list, B/L, certificate of origin, health certificate, and halal certificate.", es: "Factura comercial, lista de empaque, B/L, certificado de origen, certificado sanitario y certificado halal." },
+            { speaker: "Admin", en: "That's a lot. Do we have the halal certificate?", es: "Es mucho. ¿Tenemos el certificado halal?" },
+            { speaker: "Export", en: "Yes, it was renewed last month. I also need the EUR1 form.", es: "Sí, se renovó el mes pasado. También necesito el formulario EUR1." },
+            { speaker: "Admin", en: "Wait, Saudi Arabia isn't in the EU. Do we need EUR1?", es: "Espera, Arabia Saudí no está en la UE. ¿Necesitamos EUR1?" },
+            { speaker: "Export", en: "You're right, no EUR1. But we need a legalized certificate of origin.", es: "Tienes razón, no EUR1. Pero necesitamos un certificado de origen legalizado." },
+            { speaker: "Admin", en: "Legalized by the embassy?", es: "¿Legalizado por la embajada?" },
+            { speaker: "Export", en: "Yes. Chamber of Commerce first, then embassy. It takes 5 days.", es: "Sí. Primero Cámara de Comercio, luego embajada. Tarda 5 días." },
+            { speaker: "Admin", en: "I'll start the process today.", es: "Empiezo el proceso hoy." }
+          ]
+        },
+        {
+          title: "Payment discussion",
+          lines: [
+            { speaker: "Client", en: "What payment methods do you accept?", es: "¿Qué métodos de pago aceptan?" },
+            { speaker: "Export", en: "For new clients, we prefer letter of credit or advance payment.", es: "Para clientes nuevos, preferimos carta de crédito o pago anticipado." },
+            { speaker: "Client", en: "Letter of credit is expensive. Can we do wire transfer?", es: "La carta de crédito es cara. ¿Podemos hacer transferencia bancaria?" },
+            { speaker: "Export", en: "For the first order, we need 50% advance. After that, 30-day wire transfer.", es: "Para el primer pedido, necesitamos 50% anticipado. Después, transferencia a 30 días." },
+            { speaker: "Client", en: "That's reasonable. Can you send your bank details?", es: "Es razonable. ¿Puede enviar sus datos bancarios?" },
+            { speaker: "Export", en: "Yes, IBAN and SWIFT code are on the proforma invoice.", es: "Sí, IBAN y código SWIFT están en la factura proforma." },
+            { speaker: "Client", en: "Perfect. I'll arrange the advance payment this week.", es: "Perfecto. Gestionaré el pago anticipado esta semana." },
+            { speaker: "Export", en: "Once we confirm receipt, we'll ship within 5 working days.", es: "Una vez confirmemos la recepción, enviamos en 5 días laborables." }
+          ]
+        },
+        {
+          title: "Labeling for a new market",
+          lines: [
+            { speaker: "Export", en: "We're entering the Japanese market. Labeling is very specific.", es: "Entramos en el mercado japonés. El etiquetado es muy específico." },
+            { speaker: "Quality", en: "What requirements are different?", es: "¿Qué requisitos son diferentes?" },
+            { speaker: "Export", en: "Nutritional information format, allergen declaration, and all text in Japanese.", es: "Formato de información nutricional, declaración de alérgenos y todo el texto en japonés." },
+            { speaker: "Quality", en: "Do we need to change the bottle or just the label?", es: "¿Necesitamos cambiar la botella o solo la etiqueta?" },
+            { speaker: "Export", en: "Just the label. But it needs approval from our Japanese importer first.", es: "Solo la etiqueta. Pero necesita aprobación de nuestro importador japonés primero." },
+            { speaker: "Quality", en: "I'll prepare the nutritional data and allergen information.", es: "Prepararé los datos nutricionales y la información de alérgenos." },
+            { speaker: "Export", en: "Good. Also include the lot number and best before date in Japanese format.", es: "Bien. Incluye también el número de lote y fecha de consumo preferente en formato japonés." },
+            { speaker: "Quality", en: "Japanese date format is year/month/day, right?", es: "El formato de fecha japonés es año/mes/día, ¿verdad?" },
+            { speaker: "Export", en: "Correct. Our importer will review the final design.", es: "Correcto. Nuestro importador revisará el diseño final." }
+          ]
+        }
+      ],
+      exercises: [
+        { type: "multiple_choice", question: "'HS code' for olive oil is:", options: ["1509", "2204", "0805", "7308"], answer: "1509" },
+        { type: "multiple_choice", question: "'Letter of credit' is:", options: ["A bank-guaranteed payment method", "A personal letter", "A credit card", "A loan"], answer: "A bank-guaranteed payment method" },
+        { type: "multiple_choice", question: "'Consignee' is:", options: ["The receiver of goods", "The sender", "The driver", "The customs officer"], answer: "The receiver of goods" },
+        { type: "fill_blank", question: "The commercial invoice must match the ___.", answer: "B/L", hint: "B/_" },
+        { type: "fill_blank", question: "VAT is ___-rated on exports.", answer: "zero", hint: "z__o" },
+        { type: "translate", question: "El certificado de origen necesita sellarse", answer: "The certificate of origin needs stamping" },
+        { type: "translate", question: "Nuestro transitario gestiona toda la logística", answer: "Our freight forwarder handles all logistics" },
+        { type: "order_words", question: "Reorder:", words: ["the", "File", "declaration", "customs", "electronically"], answer: "File the customs declaration electronically" },
+        { type: "order_words", question: "Reorder:", words: ["IBAN", "Include", "SWIFT", "and", "invoice", "on", "code", "the"], answer: "Include IBAN and SWIFT code on the invoice" },
+        { type: "match", question: "Match EN → ES", pairs: [["shipper", "expedidor"], ["consignee", "destinatario"], ["duty", "arancel"], ["broker", "agente"], ["forwarder", "transitario"]] }
+      ],
+      test: [
+        { question: "'EORI number' is needed for:", options: ["EU customs identification", "Employee registration", "Product labeling", "Bank transfers"], answer: "EU customs identification" },
+        { question: "'Freight forwarder' handles:", options: ["International logistics and shipping", "Freight trains only", "Air freight only", "Local delivery"], answer: "International logistics and shipping" },
+        { question: "Translate: 'El pago es mediante carta de crédito'", options: ["Payment is by letter of credit", "Payment is by cash", "Payment is by check", "Payment is free"], answer: "Payment is by letter of credit" },
+        { question: "'Allergen declaration' is:", options: ["Mandatory on food labels", "Optional", "Only for organic", "Only for EU"], answer: "Mandatory on food labels" },
+        { question: "'Wire transfer' is:", options: ["Bank to bank payment", "Telegram", "Cash payment", "Check payment"], answer: "Bank to bank payment" },
+        { question: "'Embargo' means:", options: ["Trade restriction on a country", "Port", "Shipping container", "Customs office"], answer: "Trade restriction on a country" },
+        { question: "Translate: 'Comprobar requisitos de etiquetado'", options: ["Check labeling requirements", "Check product quality", "Check shipping costs", "Check customer address"], answer: "Check labeling requirements" },
+        { question: "'Customs broker' does:", options: ["Clears goods through customs", "Sells insurance", "Drives trucks", "Makes olive oil"], answer: "Clears goods through customs" },
+        { question: "'Proforma invoice' is:", options: ["A preliminary invoice before shipment", "The final invoice", "A receipt", "A tax form"], answer: "A preliminary invoice before shipment" },
+        { question: "'Nutritional information' includes:", options: ["Calories, fat, protein etc.", "Price per liter", "Production date", "Farmer name"], answer: "Calories, fat, protein etc." }
+      ]
+    },
+    {
+      id: "exp-4",
+      name: "International Client Relations",
+      vocabulary: [
+        { en: "relationship", es: "relación", example: "Build a strong client relationship.", note: "" },
+        { en: "trust", es: "confianza", example: "Trust is built over time.", note: "" },
+        { en: "loyalty", es: "fidelidad/lealtad", example: "Reward customer loyalty.", note: "" },
+        { en: "retention", es: "retención", example: "Client retention is 95%.", note: "" },
+        { en: "referral", es: "recomendación", example: "Many clients come from referrals.", note: "" },
+        { en: "cultural awareness", es: "conciencia cultural", example: "Cultural awareness helps in international trade.", note: "" },
+        { en: "etiquette", es: "protocolo/etiqueta", example: "Business etiquette varies by country.", note: "" },
+        { en: "greeting", es: "saludo", example: "The correct greeting shows respect.", note: "" },
+        { en: "business card", es: "tarjeta de visita", example: "Exchange business cards at meetings.", note: "" },
+        { en: "hospitality", es: "hospitalidad", example: "Offer hospitality to visiting clients.", note: "" },
+        { en: "mill visit", es: "visita a la almazara", example: "Organize a mill visit for the client.", note: "" },
+        { en: "tasting experience", es: "experiencia de cata", example: "Offer a tasting experience.", note: "" },
+        { en: "gift", es: "regalo", example: "A bottle of premium oil makes a great gift.", note: "" },
+        { en: "thank you note", es: "nota de agradecimiento", example: "Send a thank you note after the visit.", note: "" },
+        { en: "follow-up", es: "seguimiento", example: "Follow-up within 48 hours.", note: "" },
+        { en: "CRM", es: "CRM", example: "Update the CRM after each contact.", note: "Customer Relationship Management" },
+        { en: "newsletter", es: "boletín informativo", example: "Send a monthly newsletter.", note: "" },
+        { en: "update", es: "actualización", example: "Keep clients updated on harvest progress.", note: "" },
+        { en: "complaint handling", es: "gestión de reclamaciones", example: "Fast complaint handling builds trust.", note: "" },
+        { en: "resolution", es: "resolución", example: "Quick resolution of any issue.", note: "" },
+        { en: "compensation", es: "compensación", example: "Offer compensation for the delayed delivery.", note: "" },
+        { en: "satisfaction survey", es: "encuesta de satisfacción", example: "Send an annual satisfaction survey.", note: "" },
+        { en: "feedback", es: "retroalimentación", example: "Act on customer feedback.", note: "" },
+        { en: "testimonial", es: "testimonio", example: "Ask happy clients for testimonials.", note: "" },
+        { en: "social media", es: "redes sociales", example: "Share news on social media.", note: "" },
+        { en: "brand ambassador", es: "embajador de marca", example: "Loyal clients become brand ambassadors.", note: "" },
+        { en: "after-sales service", es: "servicio postventa", example: "Good after-sales service matters.", note: "" },
+        { en: "key account", es: "cuenta clave", example: "Focus on key account management.", note: "" },
+        { en: "account manager", es: "gestor de cuentas", example: "Each key client has an account manager.", note: "" },
+        { en: "long-term", es: "a largo plazo", example: "We focus on long-term relationships.", note: "" }
+      ],
+      expressions: [
+        { en: "Welcome to our mill. Let me show you around", es: "Bienvenido a nuestra almazara. Permítame enseñársela" },
+        { en: "We'd like to invite you for a tasting experience", es: "Nos gustaría invitarle a una experiencia de cata" },
+        { en: "Thank you for your continued trust", es: "Gracias por su confianza continuada" },
+        { en: "We value your long-term partnership", es: "Valoramos su colaboración a largo plazo" },
+        { en: "Please accept this bottle as a gift", es: "Por favor, acepte esta botella como regalo" },
+        { en: "I'll follow up within 48 hours", es: "Haré seguimiento en 48 horas" },
+        { en: "We take every complaint seriously", es: "Nos tomamos cada reclamación en serio" },
+        { en: "Quick resolution is our priority", es: "La resolución rápida es nuestra prioridad" },
+        { en: "We'll offer compensation for the inconvenience", es: "Ofreceremos compensación por las molestias" },
+        { en: "Would you like to visit during harvest season?", es: "¿Le gustaría visitar durante la campaña?" },
+        { en: "Your feedback helps us improve", es: "Su retroalimentación nos ayuda a mejorar" },
+        { en: "We send a monthly newsletter with updates", es: "Enviamos un boletín mensual con novedades" },
+        { en: "You are one of our key accounts", es: "Usted es una de nuestras cuentas clave" },
+        { en: "Cultural awareness is key in international trade", es: "La conciencia cultural es clave en comercio internacional" },
+        { en: "Good after-sales service builds loyalty", es: "Un buen servicio postventa genera fidelidad" }
+      ],
+      dialogues: [
+        {
+          title: "Hosting a client visit",
+          lines: [
+            { speaker: "Host", en: "Welcome to Aceites Guadalquivir! How was your flight?", es: "¡Bienvenido a Aceites Guadalquivir! ¿Qué tal el vuelo?" },
+            { speaker: "Client", en: "Very good, thank you. I'm excited to see the mill.", es: "Muy bien, gracias. Estoy emocionado de ver la almazara." },
+            { speaker: "Host", en: "Let me show you around. We'll start at the reception area.", es: "Permítame enseñársela. Empezaremos por la zona de recepción." },
+            { speaker: "Client", en: "How many tons do you process per day?", es: "¿Cuántas toneladas procesan al día?" },
+            { speaker: "Host", en: "During peak season, up to 200 tons. We're in full production now.", es: "En plena campaña, hasta 200 toneladas. Estamos en plena producción ahora." },
+            { speaker: "Client", en: "Impressive. The facility looks very modern.", es: "Impresionante. Las instalaciones parecen muy modernas." },
+            { speaker: "Host", en: "Thank you. We invested €2 million last year. Now let me take you to the tasting room.", es: "Gracias. Invertimos 2 millones el año pasado. Ahora permítame llevarle a la sala de cata." },
+            { speaker: "Client", en: "I'd love that. I want to taste your premium range.", es: "Me encantaría. Quiero probar su gama premium." },
+            { speaker: "Host", en: "Of course. And please accept this gift box of our finest oils.", es: "Por supuesto. Y por favor acepte este estuche de regalo con nuestros mejores aceites." },
+            { speaker: "Client", en: "That's very generous. Thank you.", es: "Es muy generoso. Gracias." }
+          ]
+        },
+        {
+          title: "Handling an international complaint",
+          lines: [
+            { speaker: "Client", en: "I'm calling because our last shipment arrived with damaged bottles.", es: "Llamo porque nuestro último envío llegó con botellas dañadas." },
+            { speaker: "Account mgr", en: "I'm very sorry to hear that. How many bottles were affected?", es: "Lamento mucho oír eso. ¿Cuántas botellas se afectaron?" },
+            { speaker: "Client", en: "About 50 out of 500. The packaging was crushed.", es: "Unas 50 de 500. El embalaje estaba aplastado." },
+            { speaker: "Account mgr", en: "I apologize for the inconvenience. We'll investigate immediately.", es: "Le pido disculpas por las molestias. Investigaremos inmediatamente." },
+            { speaker: "Client", en: "I need replacement bottles for next week's promotion.", es: "Necesito botellas de reemplazo para la promoción de la semana que viene." },
+            { speaker: "Account mgr", en: "We'll send 50 replacement bottles by express, at no cost to you.", es: "Enviaremos 50 botellas de reemplazo por urgente, sin coste para usted." },
+            { speaker: "Client", en: "And the damaged ones?", es: "¿Y las dañadas?" },
+            { speaker: "Account mgr", en: "Dispose of them. We'll credit your account. And I'll add 10 extra as compensation.", es: "Deséchelas. Le abonaremos en cuenta. Y añadiré 10 extra como compensación." },
+            { speaker: "Client", en: "Thank you. That's excellent service.", es: "Gracias. Eso es un servicio excelente." },
+            { speaker: "Account mgr", en: "We value your trust. I'll follow up tomorrow with the tracking number.", es: "Valoramos su confianza. Haré seguimiento mañana con el número de seguimiento." }
+          ]
+        },
+        {
+          title: "Building a new market relationship",
+          lines: [
+            { speaker: "Export", en: "We met at SIAL Paris. Thank you for visiting our booth.", es: "Nos conocimos en SIAL París. Gracias por visitar nuestro stand." },
+            { speaker: "Prospect", en: "Yes, I really enjoyed the tasting. Your Picual was outstanding.", es: "Sí, disfruté mucho la cata. Su Picual fue excepcional." },
+            { speaker: "Export", en: "Thank you. I'd like to explore a partnership for the Australian market.", es: "Gracias. Me gustaría explorar una colaboración para el mercado australiano." },
+            { speaker: "Prospect", en: "We're looking for a Spanish supplier. What makes you different?", es: "Buscamos un proveedor español. ¿Qué les hace diferentes?" },
+            { speaker: "Export", en: "Full traceability, organic and PDO certification, and excellent after-sales service.", es: "Trazabilidad completa, certificación ecológica y DOP, y excelente servicio postventa." },
+            { speaker: "Prospect", en: "What about labeling? Australian requirements are strict.", es: "¿Y el etiquetado? Los requisitos australianos son estrictos." },
+            { speaker: "Export", en: "We adapt labels to every market. We'll comply with all Australian regulations.", es: "Adaptamos etiquetas a cada mercado. Cumpliremos con toda la regulación australiana." },
+            { speaker: "Prospect", en: "Good. Let's start with a trial order. 500 bottles.", es: "Bien. Empecemos con un pedido de prueba. 500 botellas." },
+            { speaker: "Export", en: "Perfect. I'll send the proforma invoice and samples this week.", es: "Perfecto. Envío la factura proforma y muestras esta semana." },
+            { speaker: "Prospect", en: "Looking forward to it. This could be the start of a great partnership.", es: "Lo espero con ganas. Esto podría ser el inicio de una gran colaboración." }
+          ]
+        }
+      ],
+      exercises: [
+        { type: "multiple_choice", question: "'Key account' is:", options: ["An important client", "A bank account", "A security key", "A keyboard"], answer: "An important client" },
+        { type: "multiple_choice", question: "'CRM' stands for:", options: ["Customer Relationship Management", "Cash Register Machine", "Credit Rating Model", "Commercial Resource Manager"], answer: "Customer Relationship Management" },
+        { type: "multiple_choice", question: "'After-sales service' happens:", options: ["After the purchase", "Before the sale", "During production", "Never"], answer: "After the purchase" },
+        { type: "fill_blank", question: "We value your long-term ___.", answer: "partnership", hint: "p__________p" },
+        { type: "fill_blank", question: "I'll ___ up within 48 hours.", answer: "follow", hint: "f_____w" },
+        { type: "translate", question: "Nos tomamos cada reclamación en serio", answer: "We take every complaint seriously" },
+        { type: "translate", question: "Gracias por su confianza continuada", answer: "Thank you for your continued trust" },
+        { type: "order_words", question: "Reorder:", words: ["to", "Welcome", "mill", "our"], answer: "Welcome to our mill" },
+        { type: "order_words", question: "Reorder:", words: ["feedback", "Your", "us", "helps", "improve"], answer: "Your feedback helps us improve" },
+        { type: "match", question: "Match EN → ES", pairs: [["trust", "confianza"], ["loyalty", "fidelidad"], ["gift", "regalo"], ["referral", "recomendación"], ["complaint", "reclamación"]] }
+      ],
+      test: [
+        { question: "'Client retention' means:", options: ["Keeping existing clients", "Getting new clients", "Losing clients", "Counting clients"], answer: "Keeping existing clients" },
+        { question: "'Cultural awareness' helps with:", options: ["Doing business internationally", "Cooking", "Sports", "Weather"], answer: "Doing business internationally" },
+        { question: "Translate: 'Ofreceremos compensación por las molestias'", options: ["We'll offer compensation for the inconvenience", "We'll ignore the problem", "We'll charge for the damage", "We'll cancel the order"], answer: "We'll offer compensation for the inconvenience" },
+        { question: "'Testimonial' from a client is:", options: ["A positive statement about your product", "A legal document", "A complaint", "A test result"], answer: "A positive statement about your product" },
+        { question: "'Brand ambassador' is:", options: ["A loyal client who promotes your brand", "A company employee", "A government official", "A trade inspector"], answer: "A loyal client who promotes your brand" },
+        { question: "'Satisfaction survey' measures:", options: ["How happy clients are", "How much they buy", "How many complaints", "How fast delivery is"], answer: "How happy clients are" },
+        { question: "Translate: '¿Le gustaría visitar durante la campaña?'", options: ["Would you like to visit during harvest season?", "Would you like to buy more?", "Would you like a discount?", "Would you like to cancel?"], answer: "Would you like to visit during harvest season?" },
+        { question: "'Account manager' is responsible for:", options: ["Managing key client relationships", "Managing bank accounts", "Managing social media", "Managing the warehouse"], answer: "Managing key client relationships" },
+        { question: "'Newsletter' is:", options: ["Regular information sent to clients", "A newspaper article", "A legal notice", "An invoice"], answer: "Regular information sent to clients" },
+        { question: "'Long-term relationship' means:", options: ["Partnership over many years", "Short contract", "One-time purchase", "Trial order"], answer: "Partnership over many years" }
+      ]
+    },
+]
   },
 {
   id: "campo",
