@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0A0E17">
+<title>OliveEnglish - Inglés para Almazara</title>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body, #root { height: 100%; background: #0A0E17; }
+  body { font-family: 'Outfit', 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+  input, button, select, textarea { font-family: inherit; }
+  button:active { transform: scale(0.97); }
+  ::-webkit-scrollbar { width: 0; }
+</style>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useCallback, useRef } = React;
+
+
+// ============================================================
+// DATA - JSON ESTÁTICO EMBEBIDO
+// Para ampliar: copiar estructura de un módulo y añadir al array
+// ============================================================
+const MODULES_DATA = [
+  {
+    id: "produccion",
+    name: "Producción",
+    icon: "⚙️",
+    color: "#2D6A4F",
+    level: "A2-B1",
+    description: "Procesos de molienda, batido y extracción",
+    lessons: [
+      {
+        id: "prod-1",
+        name: "Mill Vocabulary",
+        vocabulary: [
+          { en: "crusher", es: "molino/triturador", example: "The crusher breaks the olives into paste.", note: "También 'mill' para molino genérico" },
+          { en: "paste", es: "pasta", example: "The paste goes into the malaxer.", note: "" },
+          { en: "malaxer", es: "batidora", example: "Set the malaxer to 27°C.", note: "Término técnico específico" },
+          { en: "decanter", es: "decánter/centrífuga horizontal", example: "The decanter separates oil from water.", note: "No confundir con 'centrifuge'" },
+          { en: "hopper", es: "tolva", example: "Load the olives into the hopper.", note: "" },
+          { en: "conveyor belt", es: "cinta transportadora", example: "The conveyor belt moves olives to the crusher.", note: "" },
+          { en: "pomace", es: "orujo/alperujo", example: "Pomace is a by-product of extraction.", note: "Residuo sólido" },
+          { en: "yield", es: "rendimiento", example: "This batch has a 20% yield.", note: "Muy usado en informes" },
+          { en: "batch", es: "lote/partida", example: "Process each batch separately.", note: "" },
+          { en: "cold extraction", es: "extracción en frío", example: "Cold extraction preserves polyphenols.", note: "Clave para AOVE" },
+          { en: "flow rate", es: "caudal", example: "Adjust the flow rate of the decanter.", note: "" },
+          { en: "throughput", es: "capacidad de procesamiento", example: "Our throughput is 5 tons per hour.", note: "" },
+          { en: "grinding", es: "molienda", example: "Grinding must be uniform.", note: "" },
+          { en: "mixing", es: "batido/mezcla", example: "Mixing time affects oil quality.", note: "En contexto almazara = batido" },
+          { en: "separation", es: "separación", example: "Two-phase separation is more common now.", note: "" },
+          { en: "two-phase", es: "dos fases", example: "We use a two-phase system.", note: "Sistema de extracción" },
+          { en: "three-phase", es: "tres fases", example: "Three-phase systems use more water.", note: "" },
+          { en: "olive oil", es: "aceite de oliva", example: "Extra virgin olive oil is the top grade.", note: "" },
+          { en: "extra virgin", es: "virgen extra", example: "This oil qualifies as extra virgin.", note: "EVOO = abreviatura común" },
+          { en: "acidity", es: "acidez", example: "Acidity must be below 0.8% for EVOO.", note: "Parámetro clave" },
+          { en: "polyphenols", es: "polifenoles", example: "High polyphenols mean better quality.", note: "" },
+          { en: "temperature", es: "temperatura", example: "Keep temperature below 27°C.", note: "" },
+          { en: "pressure", es: "presión", example: "Check the pressure gauge.", note: "" },
+          { en: "pump", es: "bomba", example: "The pump moves paste to the decanter.", note: "" },
+          { en: "valve", es: "válvula", example: "Open the valve slowly.", note: "" },
+          { en: "gauge", es: "manómetro/indicador", example: "Read the temperature gauge.", note: "" },
+          { en: "maintenance", es: "mantenimiento", example: "Schedule maintenance before the season.", note: "" },
+          { en: "breakdown", es: "avería", example: "Report any breakdown immediately.", note: "" },
+          { en: "shift", es: "turno", example: "The night shift starts at 10 PM.", note: "" },
+          { en: "operator", es: "operario", example: "The operator controls the decanter.", note: "" }
+        ],
+        expressions: [
+          { en: "Start the production line", es: "Arrancar la línea de producción" },
+          { en: "Check the temperature settings", es: "Comprobar los ajustes de temperatura" },
+          { en: "The malaxer needs cleaning", es: "La batidora necesita limpieza" },
+          { en: "What's the yield on this batch?", es: "¿Cuál es el rendimiento de esta partida?" },
+          { en: "Adjust the flow rate", es: "Ajustar el caudal" },
+          { en: "We're running two-phase today", es: "Hoy trabajamos en dos fases" },
+          { en: "Acidity levels are within range", es: "Los niveles de acidez están dentro del rango" },
+          { en: "There's a problem with the decanter", es: "Hay un problema con el decánter" },
+          { en: "Schedule maintenance for next week", es: "Programar mantenimiento para la próxima semana" },
+          { en: "The pump pressure is too high", es: "La presión de la bomba es demasiado alta" },
+          { en: "Load the hopper carefully", es: "Cargar la tolva con cuidado" },
+          { en: "This batch is ready for separation", es: "Esta partida está lista para separación" },
+          { en: "Keep the temperature below 27 degrees", es: "Mantener la temperatura por debajo de 27 grados" },
+          { en: "We need to increase throughput", es: "Necesitamos aumentar la capacidad de procesamiento" },
+          { en: "End of shift report", es: "Informe de fin de turno" }
+        ],
+        dialogues: [
+          {
+            title: "Reporting a breakdown",
+            lines: [
+              { speaker: "Operator", en: "The decanter has stopped. I think there's a blockage.", es: "El decánter se ha parado. Creo que hay un atasco." },
+              { speaker: "Supervisor", en: "When did it stop?", es: "¿Cuándo se paró?" },
+              { speaker: "Operator", en: "About ten minutes ago. The flow rate dropped first.", es: "Hace unos diez minutos. Primero bajó el caudal." },
+              { speaker: "Supervisor", en: "OK, shut down the line. I'll call maintenance.", es: "Vale, para la línea. Voy a llamar a mantenimiento." },
+              { speaker: "Operator", en: "Should I clean the hopper while we wait?", es: "¿Limpio la tolva mientras esperamos?" },
+              { speaker: "Supervisor", en: "Yes, good idea. And check the paste temperature too.", es: "Sí, buena idea. Y comprueba la temperatura de la pasta también." },
+              { speaker: "Operator", en: "The gauge shows 29°C. That's too high.", es: "El indicador marca 29°C. Eso es demasiado alto." },
+              { speaker: "Supervisor", en: "That explains the low yield. We need to fix that before restarting.", es: "Eso explica el bajo rendimiento. Hay que arreglar eso antes de reiniciar." }
+            ]
+          },
+          {
+            title: "Start of season briefing",
+            lines: [
+              { speaker: "Manager", en: "Welcome back, everyone. This season we're targeting 5 tons per hour.", es: "Bienvenidos de nuevo. Esta campaña buscamos 5 toneladas por hora." },
+              { speaker: "Operator", en: "Are we using the same two-phase system?", es: "¿Usamos el mismo sistema de dos fases?" },
+              { speaker: "Manager", en: "Yes, but we've upgraded the decanter.", es: "Sí, pero hemos mejorado el decánter." },
+              { speaker: "Operator", en: "What about the malaxer? It had problems last year.", es: "¿Y la batidora? Tuvo problemas el año pasado." },
+              { speaker: "Manager", en: "It's been fully serviced. Maintenance was completed last week.", es: "Ha sido revisada completamente. El mantenimiento se completó la semana pasada." },
+              { speaker: "Operator", en: "Good. And the shifts?", es: "Bien. ¿Y los turnos?" },
+              { speaker: "Manager", en: "Two shifts: 6 AM to 2 PM, and 2 PM to 10 PM.", es: "Dos turnos: de 6 a 14h, y de 14 a 22h." },
+              { speaker: "Operator", en: "Understood. When do we start?", es: "Entendido. ¿Cuándo empezamos?" },
+              { speaker: "Manager", en: "First batch arrives Monday. Be ready.", es: "La primera partida llega el lunes. Estad preparados." }
+            ]
+          }
+        ],
+        exercises: [
+          { type: "multiple_choice", question: "What does 'yield' mean?", options: ["Rendimiento", "Velocidad", "Temperatura", "Presión"], answer: "Rendimiento" },
+          { type: "multiple_choice", question: "'Malaxer' in Spanish is:", options: ["Batidora", "Molino", "Tolva", "Bomba"], answer: "Batidora" },
+          { type: "multiple_choice", question: "EVOO acidity must be below:", options: ["0.8%", "2%", "5%", "1.5%"], answer: "0.8%" },
+          { type: "fill_blank", question: "The ___ breaks olives into paste.", answer: "crusher", hint: "c_____r" },
+          { type: "fill_blank", question: "Keep temperature below ___ degrees.", answer: "27", hint: "2_" },
+          { type: "translate", question: "Arrancar la línea de producción", answer: "Start the production line" },
+          { type: "translate", question: "Hay un problema con el decánter", answer: "There's a problem with the decanter" },
+          { type: "order_words", question: "Reorder:", words: ["the", "Check", "temperature", "settings"], answer: "Check the temperature settings" },
+          { type: "order_words", question: "Reorder:", words: ["batch", "This", "for", "ready", "is", "separation"], answer: "This batch is ready for separation" },
+          { type: "match", question: "Match English → Spanish", pairs: [["hopper", "tolva"], ["pomace", "orujo"], ["valve", "válvula"], ["gauge", "manómetro"], ["shift", "turno"]] }
+        ],
+        test: [
+          { question: "'Pomace' means:", options: ["Orujo", "Aceite", "Pasta", "Agua"], answer: "Orujo" },
+          { question: "A two-phase system uses:", options: ["Less water", "More water", "No electricity", "Three decanters"], answer: "Less water" },
+          { question: "Translate: 'Ajustar el caudal'", options: ["Adjust the flow rate", "Check the pressure", "Start the pump", "Clean the valve"], answer: "Adjust the flow rate" },
+          { question: "The ___ moves paste to the decanter.", options: ["pump", "hopper", "gauge", "valve"], answer: "pump" },
+          { question: "'Breakdown' means:", options: ["Avería", "Turno", "Rendimiento", "Limpieza"], answer: "Avería" },
+          { question: "Cold extraction preserves:", options: ["Polyphenols", "Water", "Pomace", "Pressure"], answer: "Polyphenols" },
+          { question: "Translate: 'Informe de fin de turno'", options: ["End of shift report", "Start the line", "Call maintenance", "Check the batch"], answer: "End of shift report" },
+          { question: "'Throughput' means:", options: ["Capacidad de procesamiento", "Temperatura", "Acidez", "Presión"], answer: "Capacidad de procesamiento" },
+          { question: "The operator controls the:", options: ["Decanter", "Office", "Truck", "Label"], answer: "Decanter" },
+          { question: "Acidity is measured in:", options: ["%", "°C", "kg", "liters"], answer: "%" }
+        ]
+      },
+      {
+        id: "prod-2",
+        name: "Process Communication",
+        vocabulary: [
+          { en: "startup", es: "arranque/puesta en marcha", example: "Startup procedure takes 30 minutes.", note: "No confundir con empresa tecnológica" },
+          { en: "shutdown", es: "parada", example: "Emergency shutdown was activated.", note: "" },
+          { en: "speed", es: "velocidad", example: "Reduce the speed of the centrifuge.", note: "" },
+          { en: "setting", es: "ajuste/configuración", example: "Check the malaxer settings.", note: "" },
+          { en: "sample", es: "muestra", example: "Take a sample every hour.", note: "" },
+          { en: "reading", es: "lectura/medición", example: "What's the temperature reading?", note: "" },
+          { en: "output", es: "producción/salida", example: "Daily output was 8,000 liters.", note: "" },
+          { en: "waste", es: "residuo/desperdicio", example: "Minimize waste during extraction.", note: "" },
+          { en: "safety", es: "seguridad", example: "Follow safety procedures at all times.", note: "" },
+          { en: "log", es: "registro", example: "Update the production log.", note: "" },
+          { en: "schedule", es: "programa/horario", example: "Check today's production schedule.", note: "" },
+          { en: "delay", es: "retraso", example: "There's a two-hour delay.", note: "" },
+          { en: "issue", es: "problema/incidencia", example: "Report any issue to the supervisor.", note: "Más formal que 'problem'" },
+          { en: "alert", es: "alerta/aviso", example: "The system is showing an alert.", note: "" },
+          { en: "warning", es: "advertencia", example: "Warning: high temperature detected.", note: "" },
+          { en: "to adjust", es: "ajustar", example: "Adjust the pressure manually.", note: "" },
+          { en: "to monitor", es: "supervisar/monitorizar", example: "Monitor the gauges constantly.", note: "" },
+          { en: "to replace", es: "reemplazar/sustituir", example: "Replace the filter before the next batch.", note: "" },
+          { en: "to calibrate", es: "calibrar", example: "Calibrate the instruments weekly.", note: "" },
+          { en: "to report", es: "informar/reportar", example: "Report the output at end of shift.", note: "" },
+          { en: "currently", es: "actualmente", example: "We're currently processing lot 45.", note: "" },
+          { en: "approximately", es: "aproximadamente", example: "Approximately 3 tons left.", note: "" },
+          { en: "immediately", es: "inmediatamente", example: "Shut down immediately if pressure exceeds 5 bar.", note: "" },
+          { en: "properly", es: "correctamente", example: "The valve isn't closing properly.", note: "" },
+          { en: "smoothly", es: "sin problemas", example: "Production is running smoothly.", note: "" },
+          { en: "checklist", es: "lista de comprobación", example: "Complete the startup checklist.", note: "" },
+          { en: "handover", es: "traspaso/relevo", example: "Handover notes for the next shift.", note: "" },
+          { en: "spare part", es: "pieza de repuesto", example: "We need a spare part for the pump.", note: "" },
+          { en: "downtime", es: "tiempo de parada", example: "Minimize downtime during the season.", note: "" },
+          { en: "peak season", es: "temporada alta/campaña", example: "Peak season runs from November to January.", note: "= campaña de aceituna" }
+        ],
+        expressions: [
+          { en: "Everything is running smoothly", es: "Todo funciona sin problemas" },
+          { en: "We have an issue with the pump", es: "Tenemos un problema con la bomba" },
+          { en: "I need to report a delay", es: "Necesito informar de un retraso" },
+          { en: "Take a sample and check acidity", es: "Toma una muestra y comprueba la acidez" },
+          { en: "The system is showing a warning", es: "El sistema muestra una advertencia" },
+          { en: "We need a spare part urgently", es: "Necesitamos una pieza de repuesto urgentemente" },
+          { en: "Complete the handover notes", es: "Completar las notas de traspaso" },
+          { en: "Follow the startup checklist", es: "Seguir la lista de comprobación de arranque" },
+          { en: "Daily output exceeded target", es: "La producción diaria superó el objetivo" },
+          { en: "Calibrate instruments before starting", es: "Calibrar instrumentos antes de empezar" },
+          { en: "Monitor the gauges at all times", es: "Supervisar los indicadores en todo momento" },
+          { en: "Shut down the line for maintenance", es: "Parar la línea para mantenimiento" },
+          { en: "We're behind schedule today", es: "Hoy vamos con retraso respecto al programa" },
+          { en: "Minimize downtime during peak season", es: "Minimizar tiempos de parada durante campaña" },
+          { en: "The reading looks normal", es: "La lectura parece normal" }
+        ],
+        dialogues: [
+          {
+            title: "Shift handover",
+            lines: [
+              { speaker: "Outgoing", en: "OK, here's the handover. We processed 12 tons today.", es: "Vale, aquí está el traspaso. Hoy procesamos 12 toneladas." },
+              { speaker: "Incoming", en: "Any issues during the shift?", es: "¿Alguna incidencia durante el turno?" },
+              { speaker: "Outgoing", en: "Yes, we had a delay at 3 PM. The pump needed adjustment.", es: "Sí, tuvimos un retraso a las 15h. La bomba necesitaba ajuste." },
+              { speaker: "Incoming", en: "Is it working properly now?", es: "¿Funciona correctamente ahora?" },
+              { speaker: "Outgoing", en: "Yes, the technician fixed it. Check the log for details.", es: "Sí, el técnico lo arregló. Mira el registro para los detalles." },
+              { speaker: "Incoming", en: "What about the output? Did we hit the target?", es: "¿Y la producción? ¿Alcanzamos el objetivo?" },
+              { speaker: "Outgoing", en: "Almost. We're at 95%. The delay cost us about 500 liters.", es: "Casi. Estamos al 95%. El retraso nos costó unos 500 litros." },
+              { speaker: "Incoming", en: "Understood. I'll try to make up for it tonight. Anything else?", es: "Entendido. Intentaré recuperarlo esta noche. ¿Algo más?" },
+              { speaker: "Outgoing", en: "Just calibrate the temperature sensors. They were reading a bit high.", es: "Solo calibra los sensores de temperatura. Marcaban un poco alto." },
+              { speaker: "Incoming", en: "Got it. Have a good night.", es: "Entendido. Que pases buena noche." }
+            ]
+          },
+          {
+            title: "Emergency situation",
+            lines: [
+              { speaker: "Operator", en: "Alert! The pressure gauge is in the red zone!", es: "¡Alerta! ¡El manómetro está en zona roja!" },
+              { speaker: "Supervisor", en: "Shut down immediately! Hit the emergency stop.", es: "¡Para inmediatamente! Pulsa la parada de emergencia." },
+              { speaker: "Operator", en: "Done. The line is stopped.", es: "Hecho. La línea está parada." },
+              { speaker: "Supervisor", en: "Good. Don't touch anything. I'm calling the technician.", es: "Bien. No toques nada. Voy a llamar al técnico." },
+              { speaker: "Operator", en: "Should I log this as a safety incident?", es: "¿Lo registro como incidencia de seguridad?" },
+              { speaker: "Supervisor", en: "Yes, fill in the incident report. Include the pressure reading.", es: "Sí, rellena el informe de incidencia. Incluye la lectura de presión." },
+              { speaker: "Operator", en: "The reading was 7.5 bar. Maximum is 5.", es: "La lectura era 7,5 bar. El máximo es 5." },
+              { speaker: "Supervisor", en: "That's serious. We need to check the safety valve before restarting.", es: "Eso es grave. Hay que comprobar la válvula de seguridad antes de reiniciar." }
+            ]
+          }
+        ],
+        exercises: [
+          { type: "multiple_choice", question: "'Handover' means:", options: ["Traspaso/relevo", "Avería", "Turno", "Muestra"], answer: "Traspaso/relevo" },
+          { type: "multiple_choice", question: "'Downtime' in Spanish is:", options: ["Tiempo de parada", "Turno de noche", "Hora extra", "Velocidad"], answer: "Tiempo de parada" },
+          { type: "multiple_choice", question: "During peak season, you should:", options: ["Minimize downtime", "Increase waste", "Ignore alerts", "Skip calibration"], answer: "Minimize downtime" },
+          { type: "fill_blank", question: "Complete the startup ___.", answer: "checklist", hint: "c________t" },
+          { type: "fill_blank", question: "The valve isn't closing ___.", answer: "properly", hint: "p_______y" },
+          { type: "translate", question: "Necesitamos una pieza de repuesto urgentemente", answer: "We need a spare part urgently" },
+          { type: "translate", question: "Todo funciona sin problemas", answer: "Everything is running smoothly" },
+          { type: "order_words", question: "Reorder:", words: ["the", "Monitor", "at", "gauges", "all", "times"], answer: "Monitor the gauges at all times" },
+          { type: "order_words", question: "Reorder:", words: ["down", "Shut", "line", "the", "for", "maintenance"], answer: "Shut down the line for maintenance" },
+          { type: "match", question: "Match English → Spanish", pairs: [["sample", "muestra"], ["waste", "residuo"], ["delay", "retraso"], ["alert", "alerta"], ["log", "registro"]] }
+        ],
+        test: [
+          { question: "'Spare part' means:", options: ["Pieza de repuesto", "Turno extra", "Muestra", "Registro"], answer: "Pieza de repuesto" },
+          { question: "What's a 'checklist'?", options: ["Lista de comprobación", "Lista de precios", "Lista de empleados", "Lista de pedidos"], answer: "Lista de comprobación" },
+          { question: "Translate: 'Parar la línea para mantenimiento'", options: ["Shut down the line for maintenance", "Start the production line", "Check the pressure gauge", "Report the delay"], answer: "Shut down the line for maintenance" },
+          { question: "'Peak season' for an almazara is:", options: ["November-January", "June-August", "March-May", "All year"], answer: "November-January" },
+          { question: "'To calibrate' means:", options: ["Calibrar", "Limpiar", "Romper", "Acelerar"], answer: "Calibrar" },
+          { question: "An 'alert' in the system means:", options: ["Something needs attention", "Everything is fine", "Shift is over", "Oil is ready"], answer: "Something needs attention" },
+          { question: "Translate: 'La producción diaria superó el objetivo'", options: ["Daily output exceeded target", "The machine broke down", "We need more staff", "Check the schedule"], answer: "Daily output exceeded target" },
+          { question: "'To monitor' means:", options: ["Supervisar", "Romper", "Vender", "Comprar"], answer: "Supervisar" },
+          { question: "Handover notes are for:", options: ["The next shift", "The customers", "The accountant", "The delivery driver"], answer: "The next shift" },
+          { question: "'Immediately' means:", options: ["Inmediatamente", "Aproximadamente", "Lentamente", "Correctamente"], answer: "Inmediatamente" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "comercial",
+    name: "Comercial",
+    icon: "💼",
+    color: "#7B2D8E",
+    level: "B1-B2",
+    description: "Ventas, negociación y atención al cliente",
+    lessons: [
+      {
+        id: "com-1",
+        name: "Sales & Clients",
+        vocabulary: [
+          { en: "inquiry", es: "consulta", example: "We received an inquiry from a new client.", note: "También 'enquiry' en UK" },
+          { en: "quote", es: "presupuesto/cotización", example: "I'll send you a quote by Friday.", note: "" },
+          { en: "order", es: "pedido", example: "We'd like to place an order for 500 liters.", note: "" },
+          { en: "sample", es: "muestra", example: "Can you send us a sample first?", note: "" },
+          { en: "lead time", es: "plazo de entrega", example: "Lead time is 2-3 weeks.", note: "Muy usado en comercio" },
+          { en: "MOQ", es: "pedido mínimo", example: "Our MOQ is 200 liters.", note: "Minimum Order Quantity" },
+          { en: "bulk", es: "a granel", example: "Do you sell in bulk?", note: "" },
+          { en: "retail", es: "al por menor/minorista", example: "Our retail price is €12 per bottle.", note: "" },
+          { en: "wholesale", es: "al por mayor/mayorista", example: "Wholesale discount applies over 1,000 units.", note: "" },
+          { en: "private label", es: "marca blanca", example: "We offer private label options.", note: "= marca del distribuidor" },
+          { en: "margin", es: "margen", example: "What margin do you need?", note: "" },
+          { en: "discount", es: "descuento", example: "We can offer a 10% discount.", note: "" },
+          { en: "payment terms", es: "condiciones de pago", example: "Payment terms are 30 days net.", note: "" },
+          { en: "invoice", es: "factura", example: "We'll send the invoice after shipment.", note: "" },
+          { en: "contract", es: "contrato", example: "Let's sign the annual contract.", note: "" },
+          { en: "deadline", es: "fecha límite/plazo", example: "The deadline for the order is March 15.", note: "" },
+          { en: "forecast", es: "previsión", example: "What's your forecast for next quarter?", note: "" },
+          { en: "turnover", es: "facturación", example: "Annual turnover reached €2 million.", note: "No confundir con 'rotación'" },
+          { en: "profit", es: "beneficio", example: "Profit margin is 15%.", note: "" },
+          { en: "competitor", es: "competidor", example: "Our main competitor is in Greece.", note: "" },
+          { en: "negotiation", es: "negociación", example: "The negotiation went well.", note: "" },
+          { en: "deal", es: "acuerdo/trato", example: "We closed the deal yesterday.", note: "" },
+          { en: "feedback", es: "comentarios/valoración", example: "Customer feedback has been positive.", note: "" },
+          { en: "follow-up", es: "seguimiento", example: "I'll do a follow-up call next week.", note: "" },
+          { en: "specification", es: "especificación", example: "Here are the product specifications.", note: "" },
+          { en: "grade", es: "categoría/grado", example: "We offer three grades of olive oil.", note: "" },
+          { en: "premium", es: "premium/de alta gama", example: "This is our premium range.", note: "" },
+          { en: "organic", es: "ecológico", example: "Do you have organic certification?", note: "BIO en Europa" },
+          { en: "certification", es: "certificación", example: "We have ISO and organic certification.", note: "" },
+          { en: "traceability", es: "trazabilidad", example: "Full traceability from grove to bottle.", note: "" }
+        ],
+        expressions: [
+          { en: "Thank you for your inquiry", es: "Gracias por su consulta" },
+          { en: "I'll send you a quote shortly", es: "Le enviaré un presupuesto en breve" },
+          { en: "Our minimum order is 200 liters", es: "Nuestro pedido mínimo es de 200 litros" },
+          { en: "We can offer a competitive price", es: "Podemos ofrecer un precio competitivo" },
+          { en: "Would you like to receive a sample?", es: "¿Le gustaría recibir una muestra?" },
+          { en: "Payment terms are negotiable", es: "Las condiciones de pago son negociables" },
+          { en: "We have organic certification", es: "Tenemos certificación ecológica" },
+          { en: "Lead time is approximately two weeks", es: "El plazo de entrega es de aproximadamente dos semanas" },
+          { en: "I'll follow up next week", es: "Haré seguimiento la próxima semana" },
+          { en: "The discount applies to orders over 1,000 units", es: "El descuento se aplica a pedidos de más de 1.000 unidades" },
+          { en: "Let me check availability", es: "Permítame comprobar la disponibilidad" },
+          { en: "We guarantee full traceability", es: "Garantizamos trazabilidad completa" },
+          { en: "Our premium range is award-winning", es: "Nuestra gama premium está premiada" },
+          { en: "Can we schedule a call to discuss details?", es: "¿Podemos programar una llamada para discutir detalles?" },
+          { en: "Looking forward to working with you", es: "Esperamos trabajar con ustedes" }
+        ],
+        dialogues: [
+          {
+            title: "First contact with a client",
+            lines: [
+              { speaker: "Client", en: "Hello, I'm interested in your extra virgin olive oil.", es: "Hola, estoy interesado en su aceite de oliva virgen extra." },
+              { speaker: "Sales", en: "Thank you for your inquiry. What quantities are you looking for?", es: "Gracias por su consulta. ¿Qué cantidades busca?" },
+              { speaker: "Client", en: "We need about 2,000 liters per month.", es: "Necesitamos unos 2.000 litros al mes." },
+              { speaker: "Sales", en: "That's within our capacity. Do you need bulk or bottled?", es: "Eso está dentro de nuestra capacidad. ¿Necesita a granel o embotellado?" },
+              { speaker: "Client", en: "Bottled, private label if possible.", es: "Embotellado, marca blanca si es posible." },
+              { speaker: "Sales", en: "Yes, we offer private label. I'll send you our specifications and a quote.", es: "Sí, ofrecemos marca blanca. Le enviaré nuestras especificaciones y un presupuesto." },
+              { speaker: "Client", en: "Great. What about samples?", es: "Genial. ¿Y muestras?" },
+              { speaker: "Sales", en: "Of course. We'll send samples of our three grades. Lead time for samples is one week.", es: "Por supuesto. Le enviaremos muestras de nuestras tres categorías. El plazo para muestras es una semana." },
+              { speaker: "Client", en: "Perfect. What are your payment terms?", es: "Perfecto. ¿Cuáles son sus condiciones de pago?" },
+              { speaker: "Sales", en: "Standard is 30 days net, but for regular orders we can discuss 60 days.", es: "Lo estándar son 30 días netos, pero para pedidos regulares podemos hablar de 60 días." }
+            ]
+          },
+          {
+            title: "Price negotiation",
+            lines: [
+              { speaker: "Client", en: "Your price is higher than our current supplier.", es: "Su precio es más alto que nuestro proveedor actual." },
+              { speaker: "Sales", en: "I understand. Our oil is premium grade with full organic certification.", es: "Lo entiendo. Nuestro aceite es de categoría premium con certificación ecológica completa." },
+              { speaker: "Client", en: "Can you offer a discount for annual contracts?", es: "¿Puede ofrecer descuento para contratos anuales?" },
+              { speaker: "Sales", en: "For a 12-month contract, we can offer 8% off the list price.", es: "Para un contrato de 12 meses, podemos ofrecer un 8% sobre el precio de lista." },
+              { speaker: "Client", en: "We were hoping for 12%.", es: "Esperábamos un 12%." },
+              { speaker: "Sales", en: "I can go up to 10% if the minimum is 2,500 liters per month.", es: "Puedo llegar al 10% si el mínimo es 2.500 litros al mes." },
+              { speaker: "Client", en: "That's doable. Can you send a revised quote?", es: "Eso es factible. ¿Puede enviar un presupuesto revisado?" },
+              { speaker: "Sales", en: "I'll have it on your desk by tomorrow. Shall we schedule a call to finalize?", es: "Lo tendrá en su mesa mañana. ¿Programamos una llamada para cerrar?" }
+            ]
+          }
+        ],
+        exercises: [
+          { type: "multiple_choice", question: "'MOQ' stands for:", options: ["Minimum Order Quantity", "Maximum Output Quality", "Monthly Order Quote", "Main Oil Quality"], answer: "Minimum Order Quantity" },
+          { type: "multiple_choice", question: "'Wholesale' means:", options: ["Al por mayor", "Al por menor", "A granel", "Ecológico"], answer: "Al por mayor" },
+          { type: "multiple_choice", question: "'Lead time' is:", options: ["Plazo de entrega", "Precio de lista", "Margen de beneficio", "Pedido mínimo"], answer: "Plazo de entrega" },
+          { type: "fill_blank", question: "I'll send you a ___ by Friday.", answer: "quote", hint: "q____e" },
+          { type: "fill_blank", question: "Payment terms are 30 days ___.", answer: "net", hint: "n__" },
+          { type: "translate", question: "Gracias por su consulta", answer: "Thank you for your inquiry" },
+          { type: "translate", question: "¿Podemos programar una llamada?", answer: "Can we schedule a call?" },
+          { type: "order_words", question: "Reorder:", words: ["offer", "We", "a", "can", "competitive", "price"], answer: "We can offer a competitive price" },
+          { type: "order_words", question: "Reorder:", words: ["to", "Looking", "with", "forward", "you", "working"], answer: "Looking forward to working with you" },
+          { type: "match", question: "Match English → Spanish", pairs: [["inquiry", "consulta"], ["discount", "descuento"], ["invoice", "factura"], ["deadline", "plazo"], ["profit", "beneficio"]] }
+        ],
+        test: [
+          { question: "'Private label' means:", options: ["Marca blanca", "Marca propia", "Etiqueta privada", "Sin marca"], answer: "Marca blanca" },
+          { question: "Translate: 'Esperamos trabajar con ustedes'", options: ["Looking forward to working with you", "We hope to see you soon", "Thank you for calling", "Best regards"], answer: "Looking forward to working with you" },
+          { question: "'Turnover' in business means:", options: ["Facturación", "Rotación de personal", "Devolución", "Reembolso"], answer: "Facturación" },
+          { question: "What does 'bulk' mean?", options: ["A granel", "Embotellado", "Envasado", "Etiquetado"], answer: "A granel" },
+          { question: "'Forecast' means:", options: ["Previsión", "Factura", "Contrato", "Descuento"], answer: "Previsión" },
+          { question: "Translate: 'Le enviaré un presupuesto en breve'", options: ["I'll send you a quote shortly", "I'll call you tomorrow", "I'll check the price", "I'll prepare the order"], answer: "I'll send you a quote shortly" },
+          { question: "'Traceability' is important for:", options: ["Food safety & quality", "Advertising", "Social media", "Accounting only"], answer: "Food safety & quality" },
+          { question: "'Follow-up' means:", options: ["Seguimiento", "Seguidor", "Perseguir", "Secuencia"], answer: "Seguimiento" },
+          { question: "A 'deal' is:", options: ["Un acuerdo/trato", "Un retraso", "Una queja", "Un error"], answer: "Un acuerdo/trato" },
+          { question: "'Organic certification' in Spanish:", options: ["Certificación ecológica", "Certificación orgánica", "Certificación natural", "Certificación verde"], answer: "Certificación ecológica" }
+        ]
+      },
+      {
+        id: "com-2",
+        name: "Emails & Written Communication",
+        vocabulary: [
+          { en: "subject line", es: "asunto", example: "Keep the subject line clear and specific.", note: "" },
+          { en: "attachment", es: "adjunto/archivo adjunto", example: "Please find the price list attached.", note: "" },
+          { en: "regarding", es: "con respecto a / en relación a", example: "I'm writing regarding your order.", note: "Formal" },
+          { en: "further to", es: "en relación con / siguiendo", example: "Further to our conversation, I'm sending the quote.", note: "Muy formal, UK" },
+          { en: "as per", es: "según / de acuerdo con", example: "As per your request, here are the samples.", note: "" },
+          { en: "at your earliest convenience", es: "a la mayor brevedad posible", example: "Please reply at your earliest convenience.", note: "" },
+          { en: "to confirm", es: "confirmar", example: "I'm writing to confirm the delivery date.", note: "" },
+          { en: "to acknowledge", es: "acusar recibo", example: "I acknowledge receipt of your order.", note: "" },
+          { en: "to apologize", es: "disculparse", example: "I apologize for the delay.", note: "" },
+          { en: "to reschedule", es: "reprogramar", example: "Can we reschedule the meeting?", note: "" },
+          { en: "CC / BCC", es: "copia / copia oculta", example: "I've CC'd my manager on this email.", note: "" },
+          { en: "kind regards", es: "un cordial saludo", example: "Kind regards, Pedro", note: "Cierre estándar" },
+          { en: "best regards", es: "atentamente / saludos cordiales", example: "Best regards, Commercial Team", note: "" },
+          { en: "Dear Sir/Madam", es: "Estimado/a señor/a", example: "Dear Sir/Madam, I'm writing to inquire...", note: "Cuando no sabes el nombre" },
+          { en: "please find attached", es: "adjunto encontrará", example: "Please find attached the revised quote.", note: "Fórmula muy habitual" },
+          { en: "I look forward to", es: "quedo a la espera de", example: "I look forward to your reply.", note: "" },
+          { en: "available", es: "disponible", example: "I'm available on Tuesday afternoon.", note: "" },
+          { en: "to clarify", es: "aclarar", example: "I'd like to clarify the payment terms.", note: "" },
+          { en: "to update", es: "actualizar/informar", example: "I'm writing to update you on the shipment.", note: "" },
+          { en: "delay", es: "retraso", example: "We apologize for the delay in delivery.", note: "" },
+          { en: "arrangement", es: "acuerdo/disposición", example: "The shipping arrangements are confirmed.", note: "" },
+          { en: "to comply", es: "cumplir", example: "We comply with all EU regulations.", note: "" },
+          { en: "documentation", es: "documentación", example: "All documentation is ready for customs.", note: "" },
+          { en: "receipt", es: "recibo/acuse de recibo", example: "Please confirm receipt of the documents.", note: "" },
+          { en: "to proceed", es: "proceder", example: "Shall we proceed with the order?", note: "" },
+          { en: "inquiry", es: "consulta", example: "Thank you for your inquiry about our products.", note: "" },
+          { en: "response", es: "respuesta", example: "Thank you for your prompt response.", note: "" },
+          { en: "to assist", es: "asistir/ayudar", example: "How can I assist you?", note: "Más formal que 'help'" },
+          { en: "proposal", es: "propuesta", example: "Please review our proposal.", note: "" },
+          { en: "to negotiate", es: "negociar", example: "We're open to negotiate terms.", note: "" }
+        ],
+        expressions: [
+          { en: "I'm writing regarding your recent order", es: "Le escribo en relación a su pedido reciente" },
+          { en: "Please find attached the updated price list", es: "Adjunto encontrará la lista de precios actualizada" },
+          { en: "Further to our phone conversation", es: "En relación a nuestra conversación telefónica" },
+          { en: "I apologize for the inconvenience", es: "Le pido disculpas por las molestias" },
+          { en: "Could you please confirm receipt?", es: "¿Podría confirmar la recepción?" },
+          { en: "As per the agreed terms", es: "Según las condiciones acordadas" },
+          { en: "I look forward to hearing from you", es: "Quedo a la espera de sus noticias" },
+          { en: "Please let me know if you need further information", es: "Por favor, hágame saber si necesita más información" },
+          { en: "We're happy to assist with any questions", es: "Estamos encantados de ayudarle con cualquier pregunta" },
+          { en: "Thank you for your prompt response", es: "Gracias por su pronta respuesta" },
+          { en: "Shall we proceed with the order?", es: "¿Procedemos con el pedido?" },
+          { en: "I'd like to schedule a meeting", es: "Me gustaría programar una reunión" },
+          { en: "All documentation has been sent", es: "Toda la documentación ha sido enviada" },
+          { en: "We comply with EU food safety regulations", es: "Cumplimos con las regulaciones de seguridad alimentaria de la UE" },
+          { en: "Please review and let us know your thoughts", es: "Por favor, revise y háganos saber su opinión" }
+        ],
+        dialogues: [
+          {
+            title: "Email: Responding to an inquiry",
+            lines: [
+              { speaker: "Subject", en: "RE: Inquiry - Extra Virgin Olive Oil", es: "RE: Consulta - Aceite de Oliva Virgen Extra" },
+              { speaker: "Email", en: "Dear Mr. Thompson,", es: "Estimado Sr. Thompson," },
+              { speaker: "Email", en: "Thank you for your inquiry about our extra virgin olive oil range.", es: "Gracias por su consulta sobre nuestra gama de aceite de oliva virgen extra." },
+              { speaker: "Email", en: "Please find attached our current price list and product specifications.", es: "Adjunto encontrará nuestra lista de precios actual y las especificaciones de producto." },
+              { speaker: "Email", en: "We offer three grades: Premium, Organic, and Standard.", es: "Ofrecemos tres categorías: Premium, Ecológico y Estándar." },
+              { speaker: "Email", en: "Our MOQ is 200 liters, and lead time is approximately 2 weeks.", es: "Nuestro pedido mínimo es 200 litros, y el plazo de entrega es de aproximadamente 2 semanas." },
+              { speaker: "Email", en: "We'd be happy to send samples at no cost.", es: "Estaremos encantados de enviar muestras sin coste." },
+              { speaker: "Email", en: "Please let me know if you need any further information.", es: "Por favor, hágame saber si necesita más información." },
+              { speaker: "Email", en: "I look forward to hearing from you.", es: "Quedo a la espera de sus noticias." },
+              { speaker: "Email", en: "Kind regards, Pedro Castilla — Export Department", es: "Un cordial saludo, Pedro Castilla — Departamento de Exportación" }
+            ]
+          },
+          {
+            title: "Email: Apologizing for a delay",
+            lines: [
+              { speaker: "Subject", en: "RE: Order #4521 - Delivery Update", es: "RE: Pedido #4521 - Actualización de Entrega" },
+              { speaker: "Email", en: "Dear Ms. Laurent,", es: "Estimada Sra. Laurent," },
+              { speaker: "Email", en: "I'm writing to update you regarding your order #4521.", es: "Le escribo para informarle sobre su pedido #4521." },
+              { speaker: "Email", en: "Unfortunately, there has been a delay in production due to equipment maintenance.", es: "Desafortunadamente, ha habido un retraso en producción debido a mantenimiento de equipos." },
+              { speaker: "Email", en: "The new estimated delivery date is March 28.", es: "La nueva fecha estimada de entrega es el 28 de marzo." },
+              { speaker: "Email", en: "I sincerely apologize for the inconvenience.", es: "Le pido sinceramente disculpas por las molestias." },
+              { speaker: "Email", en: "As compensation, we'll include an additional 50 liters at no extra charge.", es: "Como compensación, incluiremos 50 litros adicionales sin cargo extra." },
+              { speaker: "Email", en: "Please don't hesitate to contact me if you have any concerns.", es: "No dude en contactarme si tiene alguna preocupación." },
+              { speaker: "Email", en: "Best regards, Pedro Castilla", es: "Atentamente, Pedro Castilla" }
+            ]
+          }
+        ],
+        exercises: [
+          { type: "multiple_choice", question: "How do you start a formal email to someone you don't know?", options: ["Dear Sir/Madam", "Hey there", "What's up", "Hi buddy"], answer: "Dear Sir/Madam" },
+          { type: "multiple_choice", question: "'Please find attached' means:", options: ["Adjunto encontrará", "Por favor busque", "Encuentre algo", "Abra el archivo"], answer: "Adjunto encontrará" },
+          { type: "multiple_choice", question: "Best closing for a business email:", options: ["Kind regards", "See ya", "Bye bye", "Cheers mate"], answer: "Kind regards" },
+          { type: "fill_blank", question: "I'm writing ___ your recent order.", answer: "regarding", hint: "r________g" },
+          { type: "fill_blank", question: "I look forward to ___ from you.", answer: "hearing", hint: "h______g" },
+          { type: "translate", question: "Adjunto encontrará la lista de precios actualizada", answer: "Please find attached the updated price list" },
+          { type: "translate", question: "Quedo a la espera de sus noticias", answer: "I look forward to hearing from you" },
+          { type: "order_words", question: "Reorder:", words: ["for", "apologize", "I", "the", "delay"], answer: "I apologize for the delay" },
+          { type: "order_words", question: "Reorder:", words: ["find", "Please", "the", "attached", "quote"], answer: "Please find attached the quote" },
+          { type: "match", question: "Match English → Spanish", pairs: [["attachment", "adjunto"], ["receipt", "acuse de recibo"], ["available", "disponible"], ["to proceed", "proceder"], ["proposal", "propuesta"]] }
+        ],
+        test: [
+          { question: "'Further to our conversation' means:", options: ["En relación a nuestra conversación", "Más allá de hablar", "Después de conversar", "Sin hablar más"], answer: "En relación a nuestra conversación" },
+          { question: "'CC' stands for:", options: ["Carbon Copy", "Client Contact", "Commercial Contract", "Company Code"], answer: "Carbon Copy" },
+          { question: "Translate: 'Le pido disculpas por las molestias'", options: ["I apologize for the inconvenience", "I'm sorry you're upset", "Please forgive me", "My apologies for calling"], answer: "I apologize for the inconvenience" },
+          { question: "'At your earliest convenience' means:", options: ["A la mayor brevedad posible", "Cuando puedas", "Lo antes posible", "Ahora mismo"], answer: "A la mayor brevedad posible" },
+          { question: "'As per' means:", options: ["Según/De acuerdo con", "Como persona", "Por cada", "A través de"], answer: "Según/De acuerdo con" },
+          { question: "How do you ask someone to confirm they got your email?", options: ["Could you please confirm receipt?", "Did you get my email?", "Hello? Anyone there?", "Read my email now"], answer: "Could you please confirm receipt?" },
+          { question: "'To comply with regulations' means:", options: ["Cumplir con las regulaciones", "Quejarse de las reglas", "Ignorar las normas", "Cambiar las leyes"], answer: "Cumplir con las regulaciones" },
+          { question: "'Shall we proceed?' means:", options: ["¿Procedemos?", "¿Seguimos adelante?", "¿Paramos?", "¿Volvemos?"], answer: "¿Procedemos?" },
+          { question: "Best way to end a formal email:", options: ["I look forward to hearing from you", "Talk soon!", "Later!", "XOXO"], answer: "I look forward to hearing from you" },
+          { question: "'Documentation' means:", options: ["Documentación", "Documento único", "Documental", "Doctor"], answer: "Documentación" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "exportacion",
+    name: "Exportación",
+    icon: "🌍",
+    color: "#C45B28",
+    level: "B1-B2",
+    description: "Logística internacional, aduanas y documentación",
+    lessons: [
+      {
+        id: "exp-1",
+        name: "Shipping & Logistics",
+        vocabulary: [
+          { en: "shipment", es: "envío", example: "The shipment leaves on Monday.", note: "" },
+          { en: "container", es: "contenedor", example: "We need a 20-foot container.", note: "20ft / 40ft estándar" },
+          { en: "pallet", es: "palé", example: "Each pallet holds 60 cases.", note: "" },
+          { en: "customs", es: "aduanas", example: "The goods are held at customs.", note: "" },
+          { en: "freight", es: "flete/carga", example: "Freight costs have increased.", note: "" },
+          { en: "carrier", es: "transportista", example: "Which carrier are you using?", note: "" },
+          { en: "port of origin", es: "puerto de origen", example: "Port of origin is Algeciras.", note: "" },
+          { en: "port of destination", es: "puerto de destino", example: "Port of destination is Rotterdam.", note: "" },
+          { en: "bill of lading", es: "conocimiento de embarque", example: "Sign the bill of lading before departure.", note: "B/L — documento clave" },
+          { en: "Incoterms", es: "Incoterms", example: "We trade FOB Algeciras.", note: "FOB, CIF, EXW, etc." },
+          { en: "FOB", es: "franco a bordo", example: "Price is FOB Spanish port.", note: "Free On Board" },
+          { en: "CIF", es: "coste, seguro y flete", example: "CIF includes insurance.", note: "Cost, Insurance, Freight" },
+          { en: "EXW", es: "en fábrica", example: "EXW price is €3.50 per liter.", note: "Ex Works" },
+          { en: "duty", es: "arancel", example: "Import duty is 5%.", note: "" },
+          { en: "tariff", es: "tarifa/arancel", example: "Check the tariff code.", note: "" },
+          { en: "clearance", es: "despacho de aduanas", example: "Customs clearance takes 2 days.", note: "" },
+          { en: "warehouse", es: "almacén", example: "Goods are stored in the warehouse.", note: "" },
+          { en: "loading", es: "carga", example: "Loading starts at 7 AM.", note: "" },
+          { en: "unloading", es: "descarga", example: "Unloading takes approximately 3 hours.", note: "" },
+          { en: "insurance", es: "seguro", example: "Transport insurance is mandatory.", note: "" },
+          { en: "phytosanitary", es: "fitosanitario", example: "Phytosanitary certificate is required.", note: "Para productos alimentarios" },
+          { en: "certificate of origin", es: "certificado de origen", example: "The certificate of origin must be stamped.", note: "" },
+          { en: "health certificate", es: "certificado sanitario", example: "The health certificate is valid for 30 days.", note: "" },
+          { en: "EUR1", es: "EUR1", example: "EUR1 form for preferential tariff.", note: "Certificado de origen UE" },
+          { en: "proforma invoice", es: "factura proforma", example: "Send the proforma invoice for customs.", note: "" },
+          { en: "commercial invoice", es: "factura comercial", example: "The commercial invoice must match the B/L.", note: "" },
+          { en: "packing list", es: "lista de empaque/albarán", example: "The packing list details all items.", note: "" },
+          { en: "tracking", es: "seguimiento", example: "Here's the tracking number.", note: "" },
+          { en: "transit time", es: "tiempo de tránsito", example: "Transit time to Japan is 30 days.", note: "" },
+          { en: "delivery note", es: "albarán de entrega", example: "Sign the delivery note upon receipt.", note: "" }
+        ],
+        expressions: [
+          { en: "The shipment is scheduled for Monday", es: "El envío está programado para el lunes" },
+          { en: "We need to book a container", es: "Necesitamos reservar un contenedor" },
+          { en: "Customs clearance is in progress", es: "El despacho de aduanas está en proceso" },
+          { en: "The goods are ready for loading", es: "La mercancía está lista para carga" },
+          { en: "Please send the bill of lading", es: "Por favor, envíe el conocimiento de embarque" },
+          { en: "Price is CIF Rotterdam", es: "El precio es CIF Róterdam" },
+          { en: "We need the phytosanitary certificate", es: "Necesitamos el certificado fitosanitario" },
+          { en: "Transit time is approximately 15 days", es: "El tiempo de tránsito es de aproximadamente 15 días" },
+          { en: "Import duty applies at 5%", es: "Se aplica un arancel del 5%" },
+          { en: "The packing list is attached", es: "La lista de empaque está adjunta" },
+          { en: "Insurance covers door to door", es: "El seguro cubre puerta a puerta" },
+          { en: "Here's the tracking number for your shipment", es: "Aquí tiene el número de seguimiento de su envío" },
+          { en: "All documentation is ready for export", es: "Toda la documentación está lista para exportación" },
+          { en: "The certificate of origin has been stamped", es: "El certificado de origen ha sido sellado" },
+          { en: "We trade Ex Works from our mill", es: "Vendemos en fábrica desde nuestra almazara" }
+        ],
+        dialogues: [
+          {
+            title: "Arranging a shipment",
+            lines: [
+              { speaker: "Export", en: "We need to ship 20 pallets to the UK next week.", es: "Necesitamos enviar 20 palés a Reino Unido la próxima semana." },
+              { speaker: "Logistics", en: "OK. Do you want a full container or groupage?", es: "Vale. ¿Quiere contenedor completo o grupaje?" },
+              { speaker: "Export", en: "Full container. It's a 20-foot, right?", es: "Contenedor completo. Es de 20 pies, ¿verdad?" },
+              { speaker: "Logistics", en: "For 20 pallets, yes. Loading on Wednesday, delivery Friday.", es: "Para 20 palés, sí. Carga el miércoles, entrega el viernes." },
+              { speaker: "Export", en: "What about customs? Any issues post-Brexit?", es: "¿Y aduanas? ¿Algún problema post-Brexit?" },
+              { speaker: "Logistics", en: "You'll need EUR1 form, phytosanitary certificate, and commercial invoice.", es: "Necesitará formulario EUR1, certificado fitosanitario y factura comercial." },
+              { speaker: "Export", en: "I have everything except the health certificate. Can we get it in time?", es: "Lo tengo todo excepto el certificado sanitario. ¿Podemos conseguirlo a tiempo?" },
+              { speaker: "Logistics", en: "If you request it today, it should be ready by Tuesday.", es: "Si lo solicita hoy, debería estar listo para el martes." },
+              { speaker: "Export", en: "Perfect. And the insurance?", es: "Perfecto. ¿Y el seguro?" },
+              { speaker: "Logistics", en: "CIF includes insurance. You're covered door to door.", es: "CIF incluye seguro. Está cubierto puerta a puerta." }
+            ]
+          },
+          {
+            title: "Problem at customs",
+            lines: [
+              { speaker: "Client", en: "Our shipment is stuck at customs. What's going on?", es: "Nuestro envío está retenido en aduanas. ¿Qué pasa?" },
+              { speaker: "Export", en: "Let me check. What's the tracking number?", es: "Déjeme comprobar. ¿Cuál es el número de seguimiento?" },
+              { speaker: "Client", en: "It's TRK-2024-0892.", es: "Es TRK-2024-0892." },
+              { speaker: "Export", en: "I see. Customs is requesting the certificate of origin.", es: "Ya veo. Aduanas está pidiendo el certificado de origen." },
+              { speaker: "Client", en: "Wasn't it included in the documentation?", es: "¿No estaba incluido en la documentación?" },
+              { speaker: "Export", en: "It was, but they need a stamped original, not a copy.", es: "Sí estaba, pero necesitan un original sellado, no una copia." },
+              { speaker: "Client", en: "How long will it take to resolve?", es: "¿Cuánto tardará en resolverse?" },
+              { speaker: "Export", en: "I'll courier the original today. Should clear customs within 48 hours.", es: "Enviaré el original por mensajería hoy. Debería pasar aduanas en 48 horas." },
+              { speaker: "Client", en: "Please keep me updated.", es: "Por favor, manténgame informado." },
+              { speaker: "Export", en: "Of course. I'll send you a status update tomorrow morning.", es: "Por supuesto. Le enviaré una actualización de estado mañana por la mañana." }
+            ]
+          }
+        ],
+        exercises: [
+          { type: "multiple_choice", question: "'Bill of lading' is:", options: ["Conocimiento de embarque", "Factura comercial", "Lista de empaque", "Certificado de origen"], answer: "Conocimiento de embarque" },
+          { type: "multiple_choice", question: "'FOB' stands for:", options: ["Free On Board", "Full Order Booked", "Freight On Board", "First Order Batch"], answer: "Free On Board" },
+          { type: "multiple_choice", question: "'Clearance' at customs means:", options: ["Despacho", "Limpieza", "Claridad", "Liquidación"], answer: "Despacho" },
+          { type: "fill_blank", question: "The shipment is scheduled for ___.", answer: "Monday", hint: "M_____y" },
+          { type: "fill_blank", question: "Transit ___ to Japan is 30 days.", answer: "time", hint: "t___e" },
+          { type: "translate", question: "Necesitamos reservar un contenedor", answer: "We need to book a container" },
+          { type: "translate", question: "Toda la documentación está lista para exportación", answer: "All documentation is ready for export" },
+          { type: "order_words", question: "Reorder:", words: ["the", "Send", "of", "bill", "lading", "please"], answer: "Send the bill of lading please" },
+          { type: "order_words", question: "Reorder:", words: ["is", "clearance", "Customs", "in", "progress"], answer: "Customs clearance is in progress" },
+          { type: "match", question: "Match English → Spanish", pairs: [["shipment", "envío"], ["customs", "aduanas"], ["pallet", "palé"], ["freight", "flete"], ["warehouse", "almacén"]] }
+        ],
+        test: [
+          { question: "'Phytosanitary certificate' is needed for:", options: ["Food products", "Cars", "Electronics", "Furniture"], answer: "Food products" },
+          { question: "'CIF' includes:", options: ["Cost + Insurance + Freight", "Container + Invoice + Fee", "Customs + Import + Freight", "Certificate + Invoice + Form"], answer: "Cost + Insurance + Freight" },
+          { question: "Translate: 'El envío está programado para el lunes'", options: ["The shipment is scheduled for Monday", "The truck arrives on Monday", "Loading starts Monday", "The container is ready"], answer: "The shipment is scheduled for Monday" },
+          { question: "'EXW' means:", options: ["Ex Works (en fábrica)", "Export Worldwide", "Extra Weight", "Express Way"], answer: "Ex Works (en fábrica)" },
+          { question: "'Packing list' is:", options: ["Lista de empaque", "Lista de precios", "Lista de clientes", "Lista de empleados"], answer: "Lista de empaque" },
+          { question: "'Tracking number' is for:", options: ["Following a shipment", "Counting stock", "Calculating price", "Registering clients"], answer: "Following a shipment" },
+          { question: "Translate: 'Aduanas está pidiendo el certificado de origen'", options: ["Customs is requesting the certificate of origin", "Customs is closed", "The certificate is ready", "Origin is confirmed"], answer: "Customs is requesting the certificate of origin" },
+          { question: "'Proforma invoice' is:", options: ["A preliminary invoice", "A final invoice", "A receipt", "A contract"], answer: "A preliminary invoice" },
+          { question: "'Groupage' means:", options: ["Shared container/grupaje", "Full container", "Air freight", "Express delivery"], answer: "Shared container/grupaje" },
+          { question: "EUR1 form is for:", options: ["Preferential tariff in EU trade", "Currency exchange", "Employee registration", "Tax declaration"], answer: "Preferential tariff in EU trade" }
+        ]
+      },
+      {
+        id: "exp-2",
+        name: "International Markets",
+        vocabulary: [
+          { en: "market", es: "mercado", example: "The US market is growing.", note: "" },
+          { en: "target market", es: "mercado objetivo", example: "Our target market is Northern Europe.", note: "" },
+          { en: "demand", es: "demanda", example: "Demand for EVOO is increasing.", note: "" },
+          { en: "supply", es: "oferta/suministro", example: "Supply is limited this season.", note: "" },
+          { en: "trend", es: "tendencia", example: "Health food is a growing trend.", note: "" },
+          { en: "brand", es: "marca", example: "Our brand is well-known in France.", note: "" },
+          { en: "positioning", es: "posicionamiento", example: "Premium positioning targets high-end stores.", note: "" },
+          { en: "distribution", es: "distribución", example: "We need better distribution in Asia.", note: "" },
+          { en: "trade fair", es: "feria comercial", example: "We'll exhibit at the trade fair.", note: "SIAL, Anuga, Expoliva..." },
+          { en: "booth", es: "stand", example: "Our booth is in Hall 3.", note: "" },
+          { en: "brochure", es: "folleto", example: "Hand out brochures to visitors.", note: "" },
+          { en: "tasting", es: "cata/degustación", example: "We're organizing a tasting session.", note: "" },
+          { en: "label", es: "etiqueta", example: "Labels must comply with local regulations.", note: "" },
+          { en: "shelf life", es: "vida útil", example: "Shelf life is 18 months.", note: "" },
+          { en: "best before", es: "consumir preferentemente antes de", example: "Best before date is printed on the label.", note: "" },
+          { en: "packaging", es: "envase/embalaje", example: "Packaging must protect against light.", note: "" },
+          { en: "regulation", es: "normativa/regulación", example: "EU regulations are strict on labeling.", note: "" },
+          { en: "compliance", es: "cumplimiento normativo", example: "Ensure compliance with import regulations.", note: "" },
+          { en: "consumer", es: "consumidor", example: "The consumer prefers glass bottles.", note: "" },
+          { en: "retailer", es: "minorista", example: "Major retailers require specific packaging.", note: "" },
+          { en: "importer", es: "importador", example: "Our importer handles local distribution.", note: "" },
+          { en: "distributor", es: "distribuidor", example: "We're looking for a distributor in Japan.", note: "" },
+          { en: "agent", es: "agente", example: "Our agent in Dubai handles the Middle East.", note: "" },
+          { en: "partnership", es: "asociación/colaboración", example: "We're exploring a partnership in China.", note: "" },
+          { en: "exhibition", es: "exposición/feria", example: "The exhibition attracted 5,000 visitors.", note: "" },
+          { en: "networking", es: "networking/contactos", example: "Trade fairs are great for networking.", note: "" },
+          { en: "launch", es: "lanzamiento", example: "Product launch is in September.", note: "" },
+          { en: "campaign", es: "campaña", example: "Our marketing campaign starts next month.", note: "" },
+          { en: "to expand", es: "expandir", example: "We want to expand into Asian markets.", note: "" },
+          { en: "to promote", es: "promocionar", example: "We promote our oil at international fairs.", note: "" }
+        ],
+        expressions: [
+          { en: "We're looking to expand into new markets", es: "Buscamos expandirnos a nuevos mercados" },
+          { en: "Demand for organic EVOO is growing", es: "La demanda de AOVE ecológico está creciendo" },
+          { en: "We'll be exhibiting at SIAL Paris", es: "Expondremos en SIAL París" },
+          { en: "Our brand positioning is premium", es: "Nuestro posicionamiento de marca es premium" },
+          { en: "We need a reliable distributor in Germany", es: "Necesitamos un distribuidor fiable en Alemania" },
+          { en: "Labels must comply with EU regulation 29/2012", es: "Las etiquetas deben cumplir con el reglamento UE 29/2012" },
+          { en: "Shelf life is guaranteed for 18 months", es: "La vida útil está garantizada por 18 meses" },
+          { en: "We'd like to organize a tasting event", es: "Nos gustaría organizar un evento de cata" },
+          { en: "The trade fair is an excellent networking opportunity", es: "La feria comercial es una excelente oportunidad de contactos" },
+          { en: "Our target market is health-conscious consumers", es: "Nuestro mercado objetivo son consumidores preocupados por la salud" },
+          { en: "We're launching a new product line in Q3", es: "Lanzamos una nueva línea de productos en el tercer trimestre" },
+          { en: "Consumer preference is shifting towards organic", es: "La preferencia del consumidor se inclina hacia lo ecológico" },
+          { en: "We offer exclusive distribution agreements", es: "Ofrecemos acuerdos de distribución exclusiva" },
+          { en: "Our packaging is designed to preserve freshness", es: "Nuestro envase está diseñado para preservar la frescura" },
+          { en: "Regulatory compliance is our top priority", es: "El cumplimiento normativo es nuestra máxima prioridad" }
+        ],
+        dialogues: [
+          {
+            title: "Meeting at a trade fair",
+            lines: [
+              { speaker: "Visitor", en: "Hello, I'm from a retail chain in Sweden. Nice booth!", es: "Hola, soy de una cadena minorista en Suecia. ¡Bonito stand!" },
+              { speaker: "Sales", en: "Thank you! Welcome. Would you like to try our premium EVOO?", es: "¡Gracias! Bienvenido. ¿Le gustaría probar nuestro AOVE premium?" },
+              { speaker: "Visitor", en: "Yes, please. Is it organic?", es: "Sí, por favor. ¿Es ecológico?" },
+              { speaker: "Sales", en: "Yes, certified organic. From our own groves in Jaén, Spain.", es: "Sí, certificado ecológico. De nuestros propios olivares en Jaén, España." },
+              { speaker: "Visitor", en: "The taste is excellent. What's the shelf life?", es: "El sabor es excelente. ¿Cuál es la vida útil?" },
+              { speaker: "Sales", en: "18 months. And our packaging protects against light and oxidation.", es: "18 meses. Y nuestro envase protege contra la luz y la oxidación." },
+              { speaker: "Visitor", en: "We're looking for a Spanish supplier. Do you export to Scandinavia?", es: "Buscamos un proveedor español. ¿Exportan a Escandinavia?" },
+              { speaker: "Sales", en: "Not yet, but we're expanding. Can I take your card?", es: "Todavía no, pero estamos expandiéndonos. ¿Puedo tomar su tarjeta?" },
+              { speaker: "Visitor", en: "Of course. Let's schedule a call next week.", es: "Por supuesto. Programemos una llamada la próxima semana." },
+              { speaker: "Sales", en: "Perfect. I'll send you our brochure and price list by email.", es: "Perfecto. Le enviaré nuestro folleto y lista de precios por email." }
+            ]
+          },
+          {
+            title: "Discussing market entry strategy",
+            lines: [
+              { speaker: "Manager", en: "We need to decide our strategy for the Japanese market.", es: "Tenemos que decidir nuestra estrategia para el mercado japonés." },
+              { speaker: "Export", en: "Japan has strict labeling regulations. We need to adapt our labels.", es: "Japón tiene normativa de etiquetado estricta. Necesitamos adaptar nuestras etiquetas." },
+              { speaker: "Manager", en: "What about distribution? Do we need a local partner?", es: "¿Y la distribución? ¿Necesitamos un socio local?" },
+              { speaker: "Export", en: "Yes, definitely. An importer who knows the retail landscape.", es: "Sí, definitivamente. Un importador que conozca el panorama minorista." },
+              { speaker: "Manager", en: "Are there any trade fairs in Japan we should attend?", es: "¿Hay ferias comerciales en Japón a las que deberíamos asistir?" },
+              { speaker: "Export", en: "FOODEX Japan in March. It's the biggest food fair in Asia.", es: "FOODEX Japan en marzo. Es la mayor feria alimentaria de Asia." },
+              { speaker: "Manager", en: "Good. Let's book a booth. What's our budget?", es: "Bien. Reservemos un stand. ¿Cuál es nuestro presupuesto?" },
+              { speaker: "Export", en: "We have €15,000 for international fairs this year.", es: "Tenemos 15.000€ para ferias internacionales este año." },
+              { speaker: "Manager", en: "That should cover FOODEX and SIAL. Let's do both.", es: "Eso debería cubrir FOODEX y SIAL. Hagamos ambas." },
+              { speaker: "Export", en: "Agreed. I'll start the registration process today.", es: "De acuerdo. Empiezo el proceso de inscripción hoy." }
+            ]
+          }
+        ],
+        exercises: [
+          { type: "multiple_choice", question: "'Trade fair' is:", options: ["Feria comercial", "Comercio justo", "Precio justo", "Mercado libre"], answer: "Feria comercial" },
+          { type: "multiple_choice", question: "'Shelf life' means:", options: ["Vida útil", "Vida en estantería", "Vida del producto", "Fecha de compra"], answer: "Vida útil" },
+          { type: "multiple_choice", question: "'Compliance' means:", options: ["Cumplimiento normativo", "Competencia", "Complicación", "Compromiso"], answer: "Cumplimiento normativo" },
+          { type: "fill_blank", question: "We're looking for a ___ in Japan.", answer: "distributor", hint: "d___________r" },
+          { type: "fill_blank", question: "Our ___ market is Northern Europe.", answer: "target", hint: "t_____t" },
+          { type: "translate", question: "Buscamos expandirnos a nuevos mercados", answer: "We're looking to expand into new markets" },
+          { type: "translate", question: "La demanda de AOVE ecológico está creciendo", answer: "Demand for organic EVOO is growing" },
+          { type: "order_words", question: "Reorder:", words: ["at", "exhibiting", "We'll", "SIAL", "be", "Paris"], answer: "We'll be exhibiting at SIAL Paris" },
+          { type: "order_words", question: "Reorder:", words: ["is", "positioning", "brand", "Our", "premium"], answer: "Our brand positioning is premium" },
+          { type: "match", question: "Match English → Spanish", pairs: [["booth", "stand"], ["tasting", "cata"], ["label", "etiqueta"], ["consumer", "consumidor"], ["launch", "lanzamiento"]] }
+        ],
+        test: [
+          { question: "'Distributor' means:", options: ["Distribuidor", "Destructor", "Director", "Diseñador"], answer: "Distribuidor" },
+          { question: "Translate: 'Expondremos en SIAL París'", options: ["We'll be exhibiting at SIAL Paris", "We'll visit SIAL Paris", "We'll cancel SIAL Paris", "We'll call SIAL Paris"], answer: "We'll be exhibiting at SIAL Paris" },
+          { question: "'Best before' on a label means:", options: ["Consumir preferentemente antes de", "Mejor comprar antes de", "Fabricado antes de", "Mejor que antes"], answer: "Consumir preferentemente antes de" },
+          { question: "'Networking' is about:", options: ["Making professional contacts", "Computer networks", "Social media", "Internet speed"], answer: "Making professional contacts" },
+          { question: "'To expand' means:", options: ["Expandir", "Explicar", "Explotar", "Exportar"], answer: "Expandir" },
+          { question: "FOODEX Japan is:", options: ["A food trade fair", "A restaurant chain", "A shipping company", "A regulation"], answer: "A food trade fair" },
+          { question: "Translate: 'Nuestro envase protege contra la luz'", options: ["Our packaging protects against light", "Our label shows the origin", "Our bottle is dark", "Our product is fresh"], answer: "Our packaging protects against light" },
+          { question: "'Positioning' in marketing means:", options: ["Posicionamiento", "Posición física", "Postura", "Ubicación"], answer: "Posicionamiento" },
+          { question: "'Campaign' means:", options: ["Campaña", "Campo", "Campamento", "Campana"], answer: "Campaña" },
+          { question: "'Regulatory compliance' means:", options: ["Cumplimiento normativo", "Regulación competitiva", "Regla obligatoria", "Norma opcional"], answer: "Cumplimiento normativo" }
+        ]
+      }
+    ]
+  }
+];
+
+// ============================================================
+// LEVEL TEST QUESTIONS
+// ============================================================
+const LEVEL_TEST = [
+  { question: "Hello, how ___ you?", options: ["are", "is", "be", "am"], answer: "are", level: "A2" },
+  { question: "I ___ in a factory.", options: ["work", "works", "working", "worked"], answer: "work", level: "A2" },
+  { question: "The olives ___ ready for harvest.", options: ["are", "is", "be", "been"], answer: "are", level: "A2" },
+  { question: "___ you send me the quote?", options: ["Can", "Does", "Is", "Are"], answer: "Can", level: "A2" },
+  { question: "We ___ the order yesterday.", options: ["received", "receive", "receiving", "receives"], answer: "received", level: "A2" },
+  { question: "If the temperature ___ too high, reduce it.", options: ["is", "are", "be", "were"], answer: "is", level: "B1" },
+  { question: "The shipment ___ arrived yet.", options: ["hasn't", "didn't", "isn't", "doesn't"], answer: "hasn't", level: "B1" },
+  { question: "I ___ working here for five years.", options: ["have been", "am", "was", "had"], answer: "have been", level: "B1" },
+  { question: "The invoice ___ be sent by Friday.", options: ["will", "is", "has", "does"], answer: "will", level: "B1" },
+  { question: "We need to ensure ___ with EU regulations.", options: ["compliance", "compliant", "comply", "complied"], answer: "compliance", level: "B2" },
+  { question: "Had we known about the delay, we ___ rescheduled.", options: ["would have", "will have", "had", "would"], answer: "would have", level: "B2" },
+  { question: "The client requested that we ___ the delivery date.", options: ["confirm", "confirmed", "confirms", "confirming"], answer: "confirm", level: "B2" },
+];
+
+// ============================================================
+// CONSTANTS
+// ============================================================
+const XP_VALUES = { lesson_view: 5, exercise_correct: 10, exercise_wrong: 2, test_complete: 20, streak_bonus: 15 };
+const PASS_THRESHOLD = 70;
+
+// ============================================================
+// TTS HELPER
+// ============================================================
+function speak(text, lang = "en-US") {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ============================================================
+// STORAGE HELPERS
+// ============================================================
+const STORAGE_KEY = "english_almazara_v1";
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+function saveState(state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+}
+
+function getDefaultUser() {
+  return {
+    name: "",
+    role: "",
+    level: "",
+    xp: 0,
+    streak: 0,
+    lastActiveDate: null,
+    completedLessons: [],
+    completedTests: [],
+    exerciseHistory: [],
+    wrongAnswers: [],
+    moduleProgress: {}
+  };
+}
+
+// ============================================================
+// MAIN APP COMPONENT
+// ============================================================
+function App() {
+  const [user, setUser] = useState(() => loadState() || getDefaultUser());
+  const [screen, setScreen] = useState(() => {
+    const saved = loadState();
+    if (!saved || !saved.name) return "onboarding";
+    if (!saved.level) return "level_test";
+    return "dashboard";
+  });
+  const [currentModule, setCurrentModule] = useState(null);
+  const [currentLesson, setCurrentLesson] = useState(null);
+  const [lessonTab, setLessonTab] = useState("vocab");
+  const [exerciseIndex, setExerciseIndex] = useState(0);
+  const [exerciseAnswer, setExerciseAnswer] = useState("");
+  const [exerciseFeedback, setExerciseFeedback] = useState(null);
+  const [exerciseScore, setExerciseScore] = useState({ correct: 0, total: 0 });
+  const [testMode, setTestMode] = useState(false);
+  const [testIndex, setTestIndex] = useState(0);
+  const [testScore, setTestScore] = useState({ correct: 0, total: 0 });
+  const [testFeedback, setTestFeedback] = useState(null);
+  const [levelTestIndex, setLevelTestIndex] = useState(0);
+  const [levelTestScore, setLevelTestScore] = useState(0);
+  const [showTranslation, setShowTranslation] = useState({});
+  const [matchSelections, setMatchSelections] = useState({ left: null, matched: [] });
+  const [orderWords, setOrderWords] = useState([]);
+  const [dialogueIndex, setDialogueIndex] = useState(0);
+  const [reviewMode, setReviewMode] = useState(false);
+  const [onboardingName, setOnboardingName] = useState("");
+  const [onboardingRole, setOnboardingRole] = useState("");
+
+  // Persist state
+  useEffect(() => { saveState(user); }, [user]);
+
+  // Streak check
+  useEffect(() => {
+    if (!user.name) return;
+    const today = new Date().toISOString().slice(0, 10);
+    if (user.lastActiveDate === today) return;
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    setUser(u => ({
+      ...u,
+      streak: u.lastActiveDate === yesterday ? u.streak + 1 : (u.lastActiveDate === today ? u.streak : 1),
+      lastActiveDate: today
+    }));
+  }, [screen]);
+
+  const addXP = useCallback((amount) => {
+    setUser(u => ({ ...u, xp: u.xp + amount }));
+  }, []);
+
+  const userLevel = user.xp < 200 ? 1 : user.xp < 500 ? 2 : user.xp < 1000 ? 3 : user.xp < 2000 ? 4 : 5;
+
+  // ============================================================
+  // STYLES
+  // ============================================================
+  const colors = {
+    bg: "#0A0E17",
+    card: "#131B2E",
+    cardHover: "#1A2440",
+    accent: "#3ECF8E",
+    accentDark: "#2BA36E",
+    warning: "#F59E0B",
+    danger: "#EF4444",
+    text: "#E2E8F0",
+    textMuted: "#8896AB",
+    border: "#1E293B",
+    correct: "#22C55E",
+    wrong: "#EF4444",
+  };
+
+  const baseStyle = {
+    fontFamily: "'Outfit', 'Segoe UI', system-ui, sans-serif",
+    background: colors.bg,
+    color: colors.text,
+    minHeight: "100vh",
+    maxWidth: 480,
+    margin: "0 auto",
+    padding: 0,
+    position: "relative",
+    overflow: "hidden",
+  };
+
+  const btn = (color = colors.accent, full = true) => ({
+    background: color,
+    color: color === colors.accent || color === colors.correct ? "#0A0E17" : "#fff",
+    border: "none",
+    borderRadius: 12,
+    padding: "14px 24px",
+    fontSize: 16,
+    fontWeight: 700,
+    fontFamily: "inherit",
+    cursor: "pointer",
+    width: full ? "100%" : "auto",
+    textAlign: "center",
+    transition: "all 0.2s",
+    letterSpacing: "0.02em",
+  });
+
+  const cardStyle = {
+    background: colors.card,
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 12,
+    border: `1px solid ${colors.border}`,
+    transition: "all 0.2s",
+  };
+
+  const headerStyle = {
+    padding: "16px 20px",
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    borderBottom: `1px solid ${colors.border}`,
+    background: colors.card,
+    position: "sticky",
+    top: 0,
+    zIndex: 10,
+  };
+
+  // ============================================================
+  // SCREEN: ONBOARDING
+  // ============================================================
+  if (screen === "onboarding") {
+    const roles = [
+      { id: "produccion", label: "Producción / Almazara", icon: "⚙️" },
+      { id: "comercial", label: "Comercial / Ventas", icon: "💼" },
+      { id: "export", label: "Exportación", icon: "🌍" },
+      { id: "admin", label: "Administración", icon: "📋" },
+      { id: "calidad", label: "Calidad / Lab", icon: "🔬" },
+    ];
+
+    return (
+      <div style={baseStyle}>
+        <div style={{ padding: "40px 24px", textAlign: "center" }}>
+          <div style={{ fontSize: 64, marginBottom: 16 }}>🫒</div>
+          <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8, background: `linear-gradient(135deg, ${colors.accent}, #6EE7B7)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            OliveEnglish
+          </h1>
+          <p style={{ color: colors.textMuted, marginBottom: 32, fontSize: 15 }}>
+            Inglés práctico para la almazara
+          </p>
+
+          <div style={{ textAlign: "left", marginBottom: 24 }}>
+            <label style={{ fontSize: 13, color: colors.textMuted, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>Tu nombre</label>
+            <input
+              value={onboardingName}
+              onChange={e => setOnboardingName(e.target.value)}
+              placeholder="Nombre"
+              style={{ width: "100%", padding: "14px 16px", borderRadius: 12, border: `1px solid ${colors.border}`, background: colors.card, color: colors.text, fontSize: 16, fontFamily: "inherit", outline: "none", boxSizing: "border-box" }}
+            />
+          </div>
+
+          <div style={{ textAlign: "left", marginBottom: 32 }}>
+            <label style={{ fontSize: 13, color: colors.textMuted, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 12 }}>Tu rol</label>
+            <div style={{ display: "grid", gap: 8 }}>
+              {roles.map(r => (
+                <button
+                  key={r.id}
+                  onClick={() => setOnboardingRole(r.id)}
+                  style={{
+                    ...cardStyle,
+                    display: "flex", alignItems: "center", gap: 12, cursor: "pointer",
+                    border: onboardingRole === r.id ? `2px solid ${colors.accent}` : `1px solid ${colors.border}`,
+                    background: onboardingRole === r.id ? colors.cardHover : colors.card,
+                    marginBottom: 0, padding: "14px 16px",
+                  }}
+                >
+                  <span style={{ fontSize: 24 }}>{r.icon}</span>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>{r.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            disabled={!onboardingName.trim() || !onboardingRole}
+            onClick={() => {
+              setUser(u => ({ ...u, name: onboardingName.trim(), role: onboardingRole }));
+              setScreen("level_test");
+            }}
+            style={{ ...btn(), opacity: (!onboardingName.trim() || !onboardingRole) ? 0.4 : 1 }}
+          >
+            Continuar →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: LEVEL TEST
+  // ============================================================
+  if (screen === "level_test") {
+    const q = LEVEL_TEST[levelTestIndex];
+    const progress = ((levelTestIndex) / LEVEL_TEST.length) * 100;
+
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <span style={{ fontSize: 20 }}>📝</span>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>Test de nivel</span>
+          <span style={{ marginLeft: "auto", color: colors.textMuted, fontSize: 14 }}>{levelTestIndex + 1}/{LEVEL_TEST.length}</span>
+        </div>
+        <div style={{ padding: "0 20px", marginTop: 12 }}>
+          <div style={{ height: 6, background: colors.card, borderRadius: 3, overflow: "hidden", marginBottom: 24 }}>
+            <div style={{ height: "100%", width: `${progress}%`, background: colors.accent, borderRadius: 3, transition: "width 0.3s" }} />
+          </div>
+
+          <div style={cardStyle}>
+            <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 20, lineHeight: 1.5 }}>{q.question}</p>
+            <div style={{ display: "grid", gap: 10 }}>
+              {q.options.map(opt => (
+                <button
+                  key={opt}
+                  onClick={() => {
+                    const isCorrect = opt === q.answer;
+                    const newScore = isCorrect ? levelTestScore + 1 : levelTestScore;
+                    if (levelTestIndex < LEVEL_TEST.length - 1) {
+                      setLevelTestScore(newScore);
+                      setLevelTestIndex(levelTestIndex + 1);
+                    } else {
+                      const pct = (newScore / LEVEL_TEST.length) * 100;
+                      const level = pct < 40 ? "A2" : pct < 70 ? "B1" : "B2";
+                      setUser(u => ({ ...u, level }));
+                      setScreen("level_result");
+                    }
+                  }}
+                  style={{
+                    padding: "14px 16px", borderRadius: 12, fontSize: 16,
+                    border: `1px solid ${colors.border}`, background: colors.card,
+                    color: colors.text, cursor: "pointer", textAlign: "left",
+                    fontFamily: "inherit", fontWeight: 500, transition: "all 0.15s",
+                  }}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: LEVEL RESULT
+  // ============================================================
+  if (screen === "level_result") {
+    const pct = Math.round((levelTestScore / LEVEL_TEST.length) * 100);
+    return (
+      <div style={baseStyle}>
+        <div style={{ padding: "60px 24px", textAlign: "center" }}>
+          <div style={{ fontSize: 64, marginBottom: 16 }}>🎯</div>
+          <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Tu nivel: {user.level}</h2>
+          <p style={{ color: colors.textMuted, marginBottom: 8 }}>{pct}% respuestas correctas</p>
+          <p style={{ color: colors.textMuted, marginBottom: 32, fontSize: 14, lineHeight: 1.6 }}>
+            {user.level === "A2" && "Tienes una base. Empezaremos con vocabulario esencial y frases simples."}
+            {user.level === "B1" && "Buen nivel intermedio. Trabajaremos situaciones reales de trabajo."}
+            {user.level === "B2" && "Nivel avanzado. Nos centraremos en comunicación profesional compleja."}
+          </p>
+          <button onClick={() => setScreen("dashboard")} style={btn()}>
+            Empezar a aprender →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: DASHBOARD
+  // ============================================================
+  if (screen === "dashboard") {
+    const totalLessons = MODULES_DATA.reduce((sum, m) => sum + m.lessons.length, 0);
+    const completedCount = user.completedLessons.length;
+
+    return (
+      <div style={baseStyle}>
+        {/* Header */}
+        <div style={{ ...headerStyle, justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontSize: 22 }}>🫒</span>
+            <span style={{ fontWeight: 800, fontSize: 18 }}>OliveEnglish</span>
+          </div>
+          <button onClick={() => setScreen("profile")} style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}>
+            <div style={{ width: 36, height: 36, borderRadius: "50%", background: colors.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 800, color: colors.bg }}>
+              {user.name.charAt(0).toUpperCase()}
+            </div>
+          </button>
+        </div>
+
+        <div style={{ padding: "20px 20px 100px" }}>
+          {/* Stats row */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 24 }}>
+            <div style={{ ...cardStyle, textAlign: "center", padding: 14, marginBottom: 0 }}>
+              <div style={{ fontSize: 22, fontWeight: 800, color: colors.accent }}>{user.xp}</div>
+              <div style={{ fontSize: 11, color: colors.textMuted, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginTop: 2 }}>XP</div>
+            </div>
+            <div style={{ ...cardStyle, textAlign: "center", padding: 14, marginBottom: 0 }}>
+              <div style={{ fontSize: 22, fontWeight: 800, color: colors.warning }}>🔥 {user.streak}</div>
+              <div style={{ fontSize: 11, color: colors.textMuted, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginTop: 2 }}>Racha</div>
+            </div>
+            <div style={{ ...cardStyle, textAlign: "center", padding: 14, marginBottom: 0 }}>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "#A78BFA" }}>Nv.{userLevel}</div>
+              <div style={{ fontSize: 11, color: colors.textMuted, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginTop: 2 }}>Nivel</div>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div style={{ ...cardStyle, marginBottom: 24 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+              <span style={{ fontSize: 13, fontWeight: 600 }}>Progreso general</span>
+              <span style={{ fontSize: 13, color: colors.textMuted }}>{completedCount}/{totalLessons} lecciones</span>
+            </div>
+            <div style={{ height: 8, background: colors.bg, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0}%`, background: `linear-gradient(90deg, ${colors.accent}, #6EE7B7)`, borderRadius: 4, transition: "width 0.5s" }} />
+            </div>
+          </div>
+
+          {/* Wrong answers review */}
+          {user.wrongAnswers.length > 0 && (
+            <button
+              onClick={() => { setReviewMode(true); setScreen("review"); }}
+              style={{ ...cardStyle, display: "flex", alignItems: "center", gap: 12, cursor: "pointer", width: "100%", textAlign: "left", border: `1px solid ${colors.warning}30`, marginBottom: 24 }}
+            >
+              <span style={{ fontSize: 28 }}>🔄</span>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 15, color: colors.warning }}>Repasar errores</div>
+                <div style={{ fontSize: 13, color: colors.textMuted }}>{user.wrongAnswers.length} palabras/frases por repasar</div>
+              </div>
+            </button>
+          )}
+
+          {/* Modules */}
+          <h3 style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: colors.textMuted, marginBottom: 14 }}>Módulos</h3>
+          <div style={{ display: "grid", gap: 12 }}>
+            {MODULES_DATA.map((mod) => {
+              const modCompleted = mod.lessons.filter(l => user.completedLessons.includes(l.id)).length;
+              const modTotal = mod.lessons.length;
+              const pct = modTotal > 0 ? Math.round((modCompleted / modTotal) * 100) : 0;
+              return (
+                <button
+                  key={mod.id}
+                  onClick={() => { setCurrentModule(mod); setScreen("module"); }}
+                  style={{ ...cardStyle, display: "flex", alignItems: "center", gap: 14, cursor: "pointer", width: "100%", textAlign: "left", marginBottom: 0 }}
+                >
+                  <div style={{ width: 52, height: 52, borderRadius: 14, background: `${mod.color}20`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, flexShrink: 0 }}>
+                    {mod.icon}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 2 }}>{mod.name}</div>
+                    <div style={{ fontSize: 12, color: colors.textMuted, marginBottom: 6 }}>{mod.description}</div>
+                    <div style={{ height: 4, background: colors.bg, borderRadius: 2, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${pct}%`, background: mod.color, borderRadius: 2, transition: "width 0.3s" }} />
+                    </div>
+                  </div>
+                  <span style={{ fontSize: 12, color: colors.textMuted, fontWeight: 600 }}>{pct}%</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: MODULE
+  // ============================================================
+  if (screen === "module" && currentModule) {
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <button onClick={() => setScreen("dashboard")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20, padding: 4 }}>←</button>
+          <span style={{ fontSize: 22 }}>{currentModule.icon}</span>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>{currentModule.name}</span>
+        </div>
+        <div style={{ padding: 20 }}>
+          <div style={{ marginBottom: 20, padding: "12px 16px", borderRadius: 12, background: `${currentModule.color}15`, border: `1px solid ${currentModule.color}30` }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: currentModule.color }}>Nivel: {currentModule.level}</span>
+          </div>
+          <div style={{ display: "grid", gap: 12 }}>
+            {currentModule.lessons.map((lesson, i) => {
+              const isCompleted = user.completedLessons.includes(lesson.id);
+              return (
+                <button
+                  key={lesson.id}
+                  onClick={() => { setCurrentLesson(lesson); setLessonTab("vocab"); setScreen("lesson"); }}
+                  style={{ ...cardStyle, display: "flex", alignItems: "center", gap: 14, cursor: "pointer", width: "100%", textAlign: "left", marginBottom: 0 }}
+                >
+                  <div style={{
+                    width: 44, height: 44, borderRadius: 12,
+                    background: isCompleted ? colors.correct : colors.bg,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: isCompleted ? 20 : 16, fontWeight: 700, color: isCompleted ? "#fff" : colors.textMuted,
+                    flexShrink: 0,
+                  }}>
+                    {isCompleted ? "✓" : i + 1}
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: 15 }}>{lesson.name}</div>
+                    <div style={{ fontSize: 12, color: colors.textMuted, marginTop: 2 }}>{lesson.vocabulary.length} palabras · {lesson.expressions.length} expresiones</div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: LESSON
+  // ============================================================
+  if (screen === "lesson" && currentLesson) {
+    const tabs = [
+      { id: "vocab", label: "Vocabulario", icon: "📖" },
+      { id: "expressions", label: "Expresiones", icon: "💬" },
+      { id: "dialogues", label: "Diálogos", icon: "🎭" },
+    ];
+
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <button onClick={() => setScreen("module")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20, padding: 4 }}>←</button>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>{currentLesson.name}</span>
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: "flex", gap: 0, borderBottom: `1px solid ${colors.border}`, padding: "0 12px" }}>
+          {tabs.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setLessonTab(t.id)}
+              style={{
+                flex: 1, padding: "12px 8px", background: "none", border: "none",
+                borderBottom: lessonTab === t.id ? `2px solid ${colors.accent}` : "2px solid transparent",
+                color: lessonTab === t.id ? colors.accent : colors.textMuted,
+                fontFamily: "inherit", fontWeight: 600, fontSize: 13, cursor: "pointer",
+              }}
+            >
+              {t.icon} {t.label}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ padding: "16px 20px 120px", overflowY: "auto" }}>
+          {/* VOCAB TAB */}
+          {lessonTab === "vocab" && (
+            <div style={{ display: "grid", gap: 8 }}>
+              {currentLesson.vocabulary.map((v, i) => (
+                <div key={i} style={cardStyle}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                        <span style={{ fontWeight: 700, fontSize: 17, color: colors.accent }}>{v.en}</span>
+                        <button onClick={() => speak(v.en)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 18, padding: 2 }}>🔊</button>
+                      </div>
+                      <div style={{ fontSize: 14, color: colors.textMuted, marginBottom: v.example ? 8 : 0 }}>{v.es}</div>
+                      {v.example && (
+                        <div style={{ fontSize: 13, color: colors.text, fontStyle: "italic", opacity: 0.8, marginBottom: v.note ? 4 : 0 }}>
+                          "{v.example}"
+                          <button onClick={() => speak(v.example)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, padding: "0 4px" }}>🔊</button>
+                        </div>
+                      )}
+                      {v.note && <div style={{ fontSize: 12, color: colors.warning, marginTop: 4 }}>💡 {v.note}</div>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* EXPRESSIONS TAB */}
+          {lessonTab === "expressions" && (
+            <div style={{ display: "grid", gap: 8 }}>
+              {currentLesson.expressions.map((expr, i) => (
+                <div key={i} style={cardStyle}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                    <span style={{ fontWeight: 700, fontSize: 15 }}>{expr.en}</span>
+                    <button onClick={() => speak(expr.en)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 16 }}>🔊</button>
+                  </div>
+                  <div style={{ fontSize: 14, color: colors.textMuted }}>{expr.es}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* DIALOGUES TAB */}
+          {lessonTab === "dialogues" && currentLesson.dialogues.length > 0 && (
+            <div>
+              {currentLesson.dialogues.map((dlg, di) => (
+                <div key={di} style={{ marginBottom: 24 }}>
+                  <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 12, color: colors.accent }}>🎭 {dlg.title}</h4>
+                  <div style={{ display: "grid", gap: 8 }}>
+                    {dlg.lines.map((line, li) => (
+                      <div key={li} style={{ ...cardStyle, marginBottom: 0 }}>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: colors.textMuted, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>{line.speaker}</div>
+                        <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 2 }}>{line.en}</div>
+                            <button
+                              onClick={() => setShowTranslation(s => ({ ...s, [`${di}-${li}`]: !s[`${di}-${li}`] }))}
+                              style={{ background: "none", border: "none", color: colors.textMuted, cursor: "pointer", fontSize: 12, padding: 0, fontFamily: "inherit" }}
+                            >
+                              {showTranslation[`${di}-${li}`] ? line.es : "Ver traducción"}
+                            </button>
+                          </div>
+                          <button onClick={() => speak(line.en)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 16, flexShrink: 0, padding: 4 }}>🔊</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Bottom action */}
+        <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, padding: "16px 20px", background: `linear-gradient(transparent, ${colors.bg} 30%)`, paddingTop: 40 }}>
+          <button
+            onClick={() => {
+              addXP(XP_VALUES.lesson_view);
+              if (!user.completedLessons.includes(currentLesson.id)) {
+                setUser(u => ({ ...u, completedLessons: [...u.completedLessons, currentLesson.id] }));
+              }
+              setExerciseIndex(0);
+              setExerciseScore({ correct: 0, total: 0 });
+              setExerciseFeedback(null);
+              setExerciseAnswer("");
+              setMatchSelections({ left: null, matched: [] });
+              setOrderWords([]);
+              setScreen("exercises");
+            }}
+            style={btn()}
+          >
+            Practicar ejercicios →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: EXERCISES
+  // ============================================================
+  if (screen === "exercises" && currentLesson) {
+    const exercises = currentLesson.exercises;
+    if (exerciseIndex >= exercises.length) {
+      const pct = exercises.length > 0 ? Math.round((exerciseScore.correct / exercises.length) * 100) : 0;
+      return (
+        <div style={baseStyle}>
+          <div style={{ padding: "60px 24px", textAlign: "center" }}>
+            <div style={{ fontSize: 64, marginBottom: 16 }}>{pct >= PASS_THRESHOLD ? "🎉" : "💪"}</div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>
+              {pct >= PASS_THRESHOLD ? "¡Excelente!" : "Sigue practicando"}
+            </h2>
+            <p style={{ fontSize: 36, fontWeight: 800, color: pct >= PASS_THRESHOLD ? colors.correct : colors.warning, marginBottom: 8 }}>{pct}%</p>
+            <p style={{ color: colors.textMuted, marginBottom: 32 }}>{exerciseScore.correct}/{exercises.length} correctas</p>
+            <div style={{ display: "grid", gap: 12 }}>
+              <button onClick={() => {
+                setTestMode(true);
+                setTestIndex(0);
+                setTestScore({ correct: 0, total: 0 });
+                setTestFeedback(null);
+                setScreen("test");
+              }} style={btn()}>Hacer test →</button>
+              <button onClick={() => setScreen("module")} style={btn(colors.card)}>Volver al módulo</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const ex = exercises[exerciseIndex];
+    const progress = ((exerciseIndex) / exercises.length) * 100;
+
+    const submitAnswer = (answer) => {
+      let isCorrect = false;
+      if (ex.type === "match") {
+        isCorrect = matchSelections.matched.length === ex.pairs.length;
+      } else {
+        const normalize = s => s.toLowerCase().trim().replace(/[?.!,]/g, "");
+        isCorrect = normalize(answer) === normalize(ex.answer);
+      }
+
+      if (isCorrect) {
+        addXP(XP_VALUES.exercise_correct);
+        setExerciseScore(s => ({ ...s, correct: s.correct + 1, total: s.total + 1 }));
+      } else {
+        addXP(XP_VALUES.exercise_wrong);
+        setExerciseScore(s => ({ ...s, total: s.total + 1 }));
+        // Save wrong answer
+        setUser(u => {
+          const existing = u.wrongAnswers.find(w => w.question === ex.question);
+          if (!existing) {
+            return { ...u, wrongAnswers: [...u.wrongAnswers, { ...ex, lessonId: currentLesson.id, timestamp: Date.now() }] };
+          }
+          return u;
+        });
+      }
+      setExerciseFeedback({ correct: isCorrect, answer: ex.answer || (ex.pairs ? ex.pairs.map(p => `${p[0]} = ${p[1]}`).join(", ") : "") });
+    };
+
+    const nextExercise = () => {
+      setExerciseFeedback(null);
+      setExerciseAnswer("");
+      setMatchSelections({ left: null, matched: [] });
+      setOrderWords([]);
+      setExerciseIndex(exerciseIndex + 1);
+    };
+
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <button onClick={() => setScreen("lesson")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20, padding: 4 }}>←</button>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>Ejercicio {exerciseIndex + 1}/{exercises.length}</span>
+        </div>
+
+        <div style={{ padding: "0 20px", marginTop: 12 }}>
+          <div style={{ height: 6, background: colors.card, borderRadius: 3, overflow: "hidden", marginBottom: 20 }}>
+            <div style={{ height: "100%", width: `${progress}%`, background: colors.accent, borderRadius: 3, transition: "width 0.3s" }} />
+          </div>
+
+          <div style={{ fontSize: 11, fontWeight: 700, color: colors.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>
+            {ex.type === "multiple_choice" && "Elige la respuesta correcta"}
+            {ex.type === "fill_blank" && "Completa la frase"}
+            {ex.type === "translate" && "Traduce al inglés"}
+            {ex.type === "order_words" && "Ordena las palabras"}
+            {ex.type === "match" && "Empareja"}
+          </div>
+
+          <div style={cardStyle}>
+            <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 20, lineHeight: 1.5 }}>{ex.question}</p>
+
+            {/* MULTIPLE CHOICE */}
+            {ex.type === "multiple_choice" && !exerciseFeedback && (
+              <div style={{ display: "grid", gap: 10 }}>
+                {ex.options.map(opt => (
+                  <button key={opt} onClick={() => submitAnswer(opt)}
+                    style={{ padding: "14px 16px", borderRadius: 12, fontSize: 15, border: `1px solid ${colors.border}`, background: colors.bg, color: colors.text, cursor: "pointer", textAlign: "left", fontFamily: "inherit", fontWeight: 500 }}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* FILL BLANK */}
+            {ex.type === "fill_blank" && !exerciseFeedback && (
+              <div>
+                {ex.hint && <p style={{ fontSize: 13, color: colors.textMuted, marginBottom: 12 }}>Pista: {ex.hint}</p>}
+                <input
+                  value={exerciseAnswer}
+                  onChange={e => setExerciseAnswer(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && exerciseAnswer.trim() && submitAnswer(exerciseAnswer)}
+                  placeholder="Escribe tu respuesta"
+                  autoFocus
+                  style={{ width: "100%", padding: "14px 16px", borderRadius: 12, border: `1px solid ${colors.border}`, background: colors.bg, color: colors.text, fontSize: 16, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 12 }}
+                />
+                <button onClick={() => exerciseAnswer.trim() && submitAnswer(exerciseAnswer)} disabled={!exerciseAnswer.trim()} style={{ ...btn(), opacity: exerciseAnswer.trim() ? 1 : 0.4 }}>
+                  Comprobar
+                </button>
+              </div>
+            )}
+
+            {/* TRANSLATE */}
+            {ex.type === "translate" && !exerciseFeedback && (
+              <div>
+                <input
+                  value={exerciseAnswer}
+                  onChange={e => setExerciseAnswer(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && exerciseAnswer.trim() && submitAnswer(exerciseAnswer)}
+                  placeholder="Escribe en inglés"
+                  autoFocus
+                  style={{ width: "100%", padding: "14px 16px", borderRadius: 12, border: `1px solid ${colors.border}`, background: colors.bg, color: colors.text, fontSize: 16, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 12 }}
+                />
+                <button onClick={() => exerciseAnswer.trim() && submitAnswer(exerciseAnswer)} disabled={!exerciseAnswer.trim()} style={{ ...btn(), opacity: exerciseAnswer.trim() ? 1 : 0.4 }}>
+                  Comprobar
+                </button>
+              </div>
+            )}
+
+            {/* ORDER WORDS */}
+            {ex.type === "order_words" && !exerciseFeedback && (
+              <div>
+                <div style={{ minHeight: 50, padding: 12, borderRadius: 12, border: `1px dashed ${colors.border}`, marginBottom: 16, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {orderWords.map((w, i) => (
+                    <button key={i} onClick={() => setOrderWords(orderWords.filter((_, j) => j !== i))}
+                      style={{ padding: "8px 14px", borderRadius: 8, background: colors.accent, color: colors.bg, fontWeight: 600, fontSize: 14, border: "none", cursor: "pointer", fontFamily: "inherit" }}>
+                      {w}
+                    </button>
+                  ))}
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+                  {ex.words.filter(w => !orderWords.includes(w) || orderWords.filter(x => x === w).length < ex.words.filter(x => x === w).length).map((w, i) => (
+                    <button key={`${w}-${i}`} onClick={() => setOrderWords([...orderWords, w])}
+                      style={{ padding: "8px 14px", borderRadius: 8, background: colors.card, color: colors.text, fontWeight: 500, fontSize: 14, border: `1px solid ${colors.border}`, cursor: "pointer", fontFamily: "inherit" }}>
+                      {w}
+                    </button>
+                  ))}
+                </div>
+                <button onClick={() => submitAnswer(orderWords.join(" "))} disabled={orderWords.length !== ex.words.length} style={{ ...btn(), opacity: orderWords.length === ex.words.length ? 1 : 0.4 }}>
+                  Comprobar
+                </button>
+              </div>
+            )}
+
+            {/* MATCH */}
+            {ex.type === "match" && !exerciseFeedback && (
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  {/* Left column */}
+                  <div style={{ display: "grid", gap: 8 }}>
+                    {ex.pairs.map(([en], i) => {
+                      const isMatched = matchSelections.matched.some(m => m[0] === en);
+                      return (
+                        <button key={en} disabled={isMatched}
+                          onClick={() => setMatchSelections(s => ({ ...s, left: en }))}
+                          style={{
+                            padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: 600, fontFamily: "inherit",
+                            border: matchSelections.left === en ? `2px solid ${colors.accent}` : `1px solid ${colors.border}`,
+                            background: isMatched ? `${colors.correct}20` : colors.bg,
+                            color: isMatched ? colors.correct : colors.text,
+                            cursor: isMatched ? "default" : "pointer", opacity: isMatched ? 0.6 : 1,
+                          }}>
+                          {en}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {/* Right column */}
+                  <div style={{ display: "grid", gap: 8 }}>
+                    {ex.pairs.map(([en, es]) => {
+                      const isMatched = matchSelections.matched.some(m => m[1] === es);
+                      return (
+                        <button key={es} disabled={isMatched || !matchSelections.left}
+                          onClick={() => {
+                            if (!matchSelections.left) return;
+                            const correctPair = ex.pairs.find(p => p[0] === matchSelections.left);
+                            if (correctPair && correctPair[1] === es) {
+                              const newMatched = [...matchSelections.matched, [matchSelections.left, es]];
+                              setMatchSelections({ left: null, matched: newMatched });
+                              if (newMatched.length === ex.pairs.length) {
+                                setTimeout(() => submitAnswer("matched"), 300);
+                              }
+                            } else {
+                              setMatchSelections(s => ({ ...s, left: null }));
+                            }
+                          }}
+                          style={{
+                            padding: "10px 12px", borderRadius: 10, fontSize: 14, fontWeight: 500, fontFamily: "inherit",
+                            border: `1px solid ${colors.border}`,
+                            background: isMatched ? `${colors.correct}20` : colors.bg,
+                            color: isMatched ? colors.correct : colors.textMuted,
+                            cursor: (isMatched || !matchSelections.left) ? "default" : "pointer", opacity: isMatched ? 0.6 : 1,
+                          }}>
+                          {es}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* FEEDBACK */}
+            {exerciseFeedback && (
+              <div style={{ marginTop: 16 }}>
+                <div style={{ padding: 16, borderRadius: 12, background: exerciseFeedback.correct ? `${colors.correct}15` : `${colors.wrong}15`, border: `1px solid ${exerciseFeedback.correct ? colors.correct : colors.wrong}30`, marginBottom: 16 }}>
+                  <div style={{ fontWeight: 700, fontSize: 16, color: exerciseFeedback.correct ? colors.correct : colors.wrong, marginBottom: 4 }}>
+                    {exerciseFeedback.correct ? "✓ ¡Correcto!" : "✗ Incorrecto"}
+                  </div>
+                  {!exerciseFeedback.correct && (
+                    <div style={{ fontSize: 14, color: colors.textMuted }}>
+                      Respuesta correcta: <strong style={{ color: colors.text }}>{exerciseFeedback.answer}</strong>
+                    </div>
+                  )}
+                </div>
+                <button onClick={nextExercise} style={btn()}>
+                  {exerciseIndex < exercises.length - 1 ? "Siguiente →" : "Ver resultado"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: TEST
+  // ============================================================
+  if (screen === "test" && currentLesson) {
+    const testQuestions = currentLesson.test;
+    if (testIndex >= testQuestions.length) {
+      const pct = testQuestions.length > 0 ? Math.round((testScore.correct / testQuestions.length) * 100) : 0;
+      const passed = pct >= PASS_THRESHOLD;
+      if (passed && !user.completedTests.includes(currentLesson.id)) {
+        // Mark test as completed (side effect, but simple)
+        if (!user.completedTests.includes(currentLesson.id)) {
+          setTimeout(() => {
+            addXP(XP_VALUES.test_complete);
+            setUser(u => ({ ...u, completedTests: [...u.completedTests, currentLesson.id] }));
+          }, 0);
+        }
+      }
+      return (
+        <div style={baseStyle}>
+          <div style={{ padding: "60px 24px", textAlign: "center" }}>
+            <div style={{ fontSize: 64, marginBottom: 16 }}>{passed ? "🏆" : "📚"}</div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 8 }}>{passed ? "¡Test superado!" : "No superado"}</h2>
+            <p style={{ fontSize: 42, fontWeight: 800, color: passed ? colors.correct : colors.danger, marginBottom: 8 }}>{pct}%</p>
+            <p style={{ color: colors.textMuted, marginBottom: 32 }}>{testScore.correct}/{testQuestions.length} · Mínimo: {PASS_THRESHOLD}%</p>
+            <div style={{ display: "grid", gap: 12 }}>
+              <button onClick={() => setScreen("module")} style={btn()}>Volver al módulo</button>
+              <button onClick={() => setScreen("dashboard")} style={btn(colors.card)}>Dashboard</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const tq = testQuestions[testIndex];
+    const progress = ((testIndex) / testQuestions.length) * 100;
+
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <button onClick={() => setScreen("module")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20, padding: 4 }}>←</button>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>Test · {testIndex + 1}/{testQuestions.length}</span>
+        </div>
+        <div style={{ padding: "0 20px", marginTop: 12 }}>
+          <div style={{ height: 6, background: colors.card, borderRadius: 3, overflow: "hidden", marginBottom: 24 }}>
+            <div style={{ height: "100%", width: `${progress}%`, background: colors.warning, borderRadius: 3, transition: "width 0.3s" }} />
+          </div>
+
+          <div style={cardStyle}>
+            <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 20, lineHeight: 1.5 }}>{tq.question}</p>
+
+            {!testFeedback && (
+              <div style={{ display: "grid", gap: 10 }}>
+                {tq.options.map(opt => (
+                  <button key={opt}
+                    onClick={() => {
+                      const isCorrect = opt === tq.answer;
+                      if (isCorrect) {
+                        addXP(XP_VALUES.exercise_correct);
+                        setTestScore(s => ({ ...s, correct: s.correct + 1, total: s.total + 1 }));
+                      } else {
+                        setTestScore(s => ({ ...s, total: s.total + 1 }));
+                      }
+                      setTestFeedback({ correct: isCorrect, answer: tq.answer });
+                    }}
+                    style={{ padding: "14px 16px", borderRadius: 12, fontSize: 15, border: `1px solid ${colors.border}`, background: colors.bg, color: colors.text, cursor: "pointer", textAlign: "left", fontFamily: "inherit", fontWeight: 500 }}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {testFeedback && (
+              <div style={{ marginTop: 16 }}>
+                <div style={{ padding: 16, borderRadius: 12, background: testFeedback.correct ? `${colors.correct}15` : `${colors.wrong}15`, border: `1px solid ${testFeedback.correct ? colors.correct : colors.wrong}30`, marginBottom: 16 }}>
+                  <div style={{ fontWeight: 700, fontSize: 16, color: testFeedback.correct ? colors.correct : colors.wrong }}>
+                    {testFeedback.correct ? "✓ ¡Correcto!" : "✗ Incorrecto"}
+                  </div>
+                  {!testFeedback.correct && <div style={{ fontSize: 14, color: colors.textMuted, marginTop: 4 }}>Respuesta: <strong style={{ color: colors.text }}>{testFeedback.answer}</strong></div>}
+                </div>
+                <button onClick={() => { setTestFeedback(null); setTestIndex(testIndex + 1); }} style={btn()}>
+                  {testIndex < testQuestions.length - 1 ? "Siguiente →" : "Ver resultado"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: REVIEW (wrong answers)
+  // ============================================================
+  if (screen === "review") {
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <button onClick={() => setScreen("dashboard")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20, padding: 4 }}>←</button>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>🔄 Repasar errores</span>
+        </div>
+        <div style={{ padding: 20 }}>
+          {user.wrongAnswers.length === 0 ? (
+            <div style={{ textAlign: "center", padding: 40 }}>
+              <div style={{ fontSize: 48, marginBottom: 16 }}>🎉</div>
+              <p style={{ color: colors.textMuted }}>¡No tienes errores pendientes!</p>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gap: 8 }}>
+              {user.wrongAnswers.map((wa, i) => (
+                <div key={i} style={cardStyle}>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{wa.question}</div>
+                  <div style={{ fontSize: 13, color: colors.correct }}>✓ {wa.answer || (wa.pairs ? wa.pairs.map(p => `${p[0]}→${p[1]}`).join(", ") : "")}</div>
+                  <button
+                    onClick={() => setUser(u => ({ ...u, wrongAnswers: u.wrongAnswers.filter((_, j) => j !== i) }))}
+                    style={{ marginTop: 8, background: "none", border: `1px solid ${colors.border}`, borderRadius: 8, padding: "6px 12px", color: colors.textMuted, fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}
+                  >
+                    Ya lo sé ✓
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SCREEN: PROFILE
+  // ============================================================
+  if (screen === "profile") {
+    const totalLessons = MODULES_DATA.reduce((sum, m) => sum + m.lessons.length, 0);
+    return (
+      <div style={baseStyle}>
+        <div style={headerStyle}>
+          <button onClick={() => setScreen("dashboard")} style={{ background: "none", border: "none", color: colors.text, cursor: "pointer", fontSize: 20, padding: 4 }}>←</button>
+          <span style={{ fontWeight: 700, fontSize: 17 }}>Perfil</span>
+        </div>
+        <div style={{ padding: 20 }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div style={{ width: 80, height: 80, borderRadius: "50%", background: `linear-gradient(135deg, ${colors.accent}, #6EE7B7)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, fontWeight: 800, color: colors.bg, margin: "0 auto 12px" }}>
+              {user.name.charAt(0).toUpperCase()}
+            </div>
+            <h2 style={{ fontSize: 22, fontWeight: 800 }}>{user.name}</h2>
+            <p style={{ color: colors.textMuted, fontSize: 14 }}>Nivel {user.level} · {user.role}</p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+            <div style={{ ...cardStyle, textAlign: "center" }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: colors.accent }}>{user.xp}</div>
+              <div style={{ fontSize: 12, color: colors.textMuted }}>XP Total</div>
+            </div>
+            <div style={{ ...cardStyle, textAlign: "center" }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: colors.warning }}>🔥 {user.streak}</div>
+              <div style={{ fontSize: 12, color: colors.textMuted }}>Días seguidos</div>
+            </div>
+            <div style={{ ...cardStyle, textAlign: "center" }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: "#A78BFA" }}>{user.completedLessons.length}</div>
+              <div style={{ fontSize: 12, color: colors.textMuted }}>Lecciones</div>
+            </div>
+            <div style={{ ...cardStyle, textAlign: "center" }}>
+              <div style={{ fontSize: 28, fontWeight: 800, color: "#F472B6" }}>{user.completedTests.length}</div>
+              <div style={{ fontSize: 12, color: colors.textMuted }}>Tests</div>
+            </div>
+          </div>
+
+          <button onClick={() => {
+            if (confirm("¿Resetear todo el progreso? Esta acción no se puede deshacer.")) {
+              localStorage.removeItem(STORAGE_KEY);
+              setUser(getDefaultUser());
+              setScreen("onboarding");
+            }
+          }} style={{ ...btn(colors.danger), marginTop: 20 }}>
+            Resetear progreso
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+// Mount the app
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(React.createElement(App));
+</script>
+</body>
+</html>
